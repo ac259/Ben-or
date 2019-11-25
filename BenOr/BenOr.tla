@@ -11,7 +11,16 @@ Procs == 1..N
     --algorithm BenOr{
             \* \* Process to broadcast its own value to all the other processes
         fair process (p \in Procs){
-            broadcast: print TRUE;
+            broadcast: while(TRUE) {
+                \* \* SendP1 -> macro which will post the value of that node to the message board as p1v
+                \* \* RvcP1 -> Get n-f values with p1v 
+                \* \* Logic can be included here or in the above macro. Basically we need to finalize b[p] == v if there is a majority(n-f), else b[p] = -1
+                \* \* SendP2 -> Macro which sends the b value of the node to the message board as p2v
+                \* \* RvcP2 -> Get n-f values with p2v
+                (* \* Logic can be included here or in the above macro. Basically need to finalize decided[p] = v if there is a majority v in (n-f),
+                else pick random b if some value is not -1
+                    else if all are undecided pick uniformly between (0,1) *)
+            }
         } 
     }
 *)
