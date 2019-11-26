@@ -27,11 +27,12 @@ Procs == 1..N
         
         macro RvcP1(r)
         {
-        (*\* This function deadlocks since I am using = to compare, ideally it should be >=
-        But the algorithm would need to find first n-f elements in the next line which I am not able to do
+        (*\* This functions while running doesn't change the value of p2v in the Trace(but it prints the correct val),
+        Possibly the issue is where I am trying to assign it 1 or 0
         *)
-            await (Cardinality(CollectP1Msgs(r)) >= N-F);
-            \*\* DBCollectP1Msgs := DBCollectP1Msgs \union {[C |-> Cardinality(CollectP1Msgs(r)), M |-> CollectP1Msgs(r)]};
+            await (Cardinality(CollectP1Msgs(r)) = N-F);
+            DBCollectP1Msgs := CollectP1Msgs(r);
+            print ExtractValSet(CollectP1Msgs(r));
             \* \* The above statement gives A which is first N-F messages received
             \* \* Need to get the values from the messages out and determine if all are same
             if (\E v \in {0,1}: \A a \in ExtractValSet(CollectP1Msgs(r)): a = v)
@@ -109,7 +110,9 @@ P1S(self) == /\ pc[self] = "P1S"
              /\ UNCHANGED << p2Msg, DBCollectP1Msgs, r, p1v, p2v, decided >>
 
 P1R(self) == /\ pc[self] = "P1R"
-             /\ (Cardinality(CollectP1Msgs(r[self])) >= N-F)
+             /\ (Cardinality(CollectP1Msgs(r[self])) = N-F)
+             /\ DBCollectP1Msgs' = CollectP1Msgs(r[self])
+             /\ PrintT(ExtractValSet(CollectP1Msgs(r[self])))
              /\ IF \E v \in {0,1}: \A a \in ExtractValSet(CollectP1Msgs(r[self])): a = v
                    THEN /\ IF ExtractValSet(CollectP1Msgs(r[self])) \intersect {1} = {1}
                               THEN /\ p2v' = [p2v EXCEPT ![self] = 1]
@@ -117,7 +120,7 @@ P1R(self) == /\ pc[self] = "P1R"
                    ELSE /\ TRUE
                         /\ p2v' = p2v
              /\ pc' = [pc EXCEPT ![self] = "P2S"]
-             /\ UNCHANGED << p1Msg, p2Msg, DBCollectP1Msgs, r, p1v, decided >>
+             /\ UNCHANGED << p1Msg, p2Msg, r, p1v, decided >>
 
 P2S(self) == /\ pc[self] = "P2S"
              /\ p2Msg' = (p2Msg \union {[nodeid |-> self, round |-> r[self], value |-> p2v[self]]})

@@ -10,7 +10,7 @@ Procs == 1..N
 (*
     --algorithm BenOr
     {
-        variable p1Msg = {}, p2Msg = {},DBCollectP1Msgs={};
+        variable p1Msg = {}, p2Msg = {};
         
         define
         {
@@ -27,11 +27,12 @@ Procs == 1..N
         
         macro RvcP1(r)
         {
-        (*\* This function deadlocks since I am using = to compare, ideally it should be >=
-        But the algorithm would need to find first n-f elements in the next line which I am not able to do
+        (*\* This functions while running doesn't change the value of p2v in the Trace(but it prints the correct val),
+        Possibly the issue is where I am trying to assign it 1 or 0
         *)
-            await (Cardinality(CollectP1Msgs(r)) >= N-F);
-            \*\* DBCollectP1Msgs := DBCollectP1Msgs \union {[C |-> Cardinality(CollectP1Msgs(r)), M |-> CollectP1Msgs(r)]};
+            await (Cardinality(CollectP1Msgs(r)) = N-F);
+            DBCollectP1Msgs := CollectP1Msgs(r);
+            print ExtractValSet(CollectP1Msgs(r));
             \* \* The above statement gives A which is first N-F messages received
             \* \* Need to get the values from the messages out and determine if all are same
             if (\E v \in {0,1}: \A a \in ExtractValSet(CollectP1Msgs(r)): a = v)
@@ -52,7 +53,7 @@ Procs == 1..N
         
         fair process (p \in Procs)
         \* \* p2v is b and p1v is a http://www.nada.kth.se/kurser/kth/2D5340/wwwbook/node17.html 
-        variable r = 1, p1v = INPUT[self], p2v = -1, decided =-1;
+        variable r = 1, p1v = INPUT[self], p2v = -1, decided =-1,DBCollectP1Msgs={0};
         {    
             broadcast: while(r <MAXROUND) 
             {
@@ -73,43 +74,45 @@ Procs == 1..N
     }
 *)
 \* BEGIN TRANSLATION
-VARIABLES p1Msg, p2Msg, DBCollectP1Msgs, pc
+VARIABLES p1Msg, p2Msg, pc
 
 (* define statement *)
 ExtractValSet(S) == {m.value: m \in S}
 CollectP1Msgs(r) == {m \in p1Msg: (m.round = r)}
 
-VARIABLES r, p1v, p2v, decided
+VARIABLES r, p1v, p2v, decided, DBCollectP1Msgs
 
-vars == << p1Msg, p2Msg, DBCollectP1Msgs, pc, r, p1v, p2v, decided >>
+vars == << p1Msg, p2Msg, pc, r, p1v, p2v, decided, DBCollectP1Msgs >>
 
 ProcSet == (Procs)
 
 Init == (* Global variables *)
         /\ p1Msg = {}
         /\ p2Msg = {}
-        /\ DBCollectP1Msgs = {}
         (* Process p *)
         /\ r = [self \in Procs |-> 1]
         /\ p1v = [self \in Procs |-> INPUT[self]]
         /\ p2v = [self \in Procs |-> -1]
         /\ decided = [self \in Procs |-> -1]
+        /\ DBCollectP1Msgs = [self \in Procs |-> {0}]
         /\ pc = [self \in ProcSet |-> "broadcast"]
 
 broadcast(self) == /\ pc[self] = "broadcast"
                    /\ IF r[self] <MAXROUND
                          THEN /\ pc' = [pc EXCEPT ![self] = "P1S"]
                          ELSE /\ pc' = [pc EXCEPT ![self] = "Done"]
-                   /\ UNCHANGED << p1Msg, p2Msg, DBCollectP1Msgs, r, p1v, p2v, 
-                                   decided >>
+                   /\ UNCHANGED << p1Msg, p2Msg, r, p1v, p2v, decided, 
+                                   DBCollectP1Msgs >>
 
 P1S(self) == /\ pc[self] = "P1S"
              /\ p1Msg' = (p1Msg \union {[nodeid |-> self, round |-> r[self], value |-> p1v[self]]})
              /\ pc' = [pc EXCEPT ![self] = "P1R"]
-             /\ UNCHANGED << p2Msg, DBCollectP1Msgs, r, p1v, p2v, decided >>
+             /\ UNCHANGED << p2Msg, r, p1v, p2v, decided, DBCollectP1Msgs >>
 
 P1R(self) == /\ pc[self] = "P1R"
-             /\ (Cardinality(CollectP1Msgs(r[self])) >= N-F)
+             /\ (Cardinality(CollectP1Msgs(r[self])) = N-F)
+             /\ DBCollectP1Msgs' = [DBCollectP1Msgs EXCEPT ![self] = CollectP1Msgs(r[self])]
+             /\ PrintT(ExtractValSet(CollectP1Msgs(r[self])))
              /\ IF \E v \in {0,1}: \A a \in ExtractValSet(CollectP1Msgs(r[self])): a = v
                    THEN /\ IF ExtractValSet(CollectP1Msgs(r[self])) \intersect {1} = {1}
                               THEN /\ p2v' = [p2v EXCEPT ![self] = 1]
@@ -117,13 +120,13 @@ P1R(self) == /\ pc[self] = "P1R"
                    ELSE /\ TRUE
                         /\ p2v' = p2v
              /\ pc' = [pc EXCEPT ![self] = "P2S"]
-             /\ UNCHANGED << p1Msg, p2Msg, DBCollectP1Msgs, r, p1v, decided >>
+             /\ UNCHANGED << p1Msg, p2Msg, r, p1v, decided >>
 
 P2S(self) == /\ pc[self] = "P2S"
              /\ p2Msg' = (p2Msg \union {[nodeid |-> self, round |-> r[self], value |-> p2v[self]]})
              /\ r' = [r EXCEPT ![self] = r[self] + 1]
              /\ pc' = [pc EXCEPT ![self] = "broadcast"]
-             /\ UNCHANGED << p1Msg, DBCollectP1Msgs, p1v, p2v, decided >>
+             /\ UNCHANGED << p1Msg, p1v, p2v, decided, DBCollectP1Msgs >>
 
 p(self) == broadcast(self) \/ P1S(self) \/ P1R(self) \/ P2S(self)
 
