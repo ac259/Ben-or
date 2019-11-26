@@ -30,7 +30,7 @@ Procs == 1..N
         (*\* This function deadlocks since I am using = to compare, ideally it should be >=
         But the algorithm would need to find first n-f elements in the next line which I am not able to do
         *)
-            await (Cardinality(CollectP1Msgs(r)) >= N-F);
+            await (Cardinality(CollectP1Msgs(r)) = N-F);
             \*\* DBCollectP1Msgs := DBCollectP1Msgs \union {[C |-> Cardinality(CollectP1Msgs(r)), M |-> CollectP1Msgs(r)]};
             \* \* The above statement gives A which is first N-F messages received
             \* \* Need to get the values from the messages out and determine if all are same
