@@ -1,0 +1,284 @@
+@!@!@STARTMSG 2262:0 @!@!@
+TLC2 Version 2.14 of 10 July 2019
+@!@!@ENDMSG 2262 @!@!@
+@!@!@STARTMSG 2187:0 @!@!@
+Running breadth-first search Model-Checking with fp 80 and seed -540405191914520619 with 2 workers on 4 cores with 599MB heap and 1346MB offheap memory [pid: 15344] (Windows 10 10.0 amd64, AdoptOpenJDK 11.0.3 x86_64, OffHeapDiskFPSet, DiskStateQueue).
+@!@!@ENDMSG 2187 @!@!@
+@!@!@STARTMSG 2220:0 @!@!@
+Starting SANY...
+@!@!@ENDMSG 2220 @!@!@
+Parsing file C:\Users\HP\Desktop\Distributed Systems\project\TLA-Plus\BenOr\BenOr.toolbox\benor9\MC.tla
+Parsing file C:\Users\HP\Desktop\Distributed Systems\project\TLA-Plus\BenOr\BenOr.toolbox\benor9\BenOr.tla
+Parsing file C:\Users\HP\Desktop\Distributed Systems\tla+\toolbox\plugins\org.lamport.tlatools_1.0.0.201907102009\tla2sany\StandardModules\TLC.tla
+Parsing file C:\Users\HP\Desktop\Distributed Systems\tla+\toolbox\plugins\org.lamport.tlatools_1.0.0.201907102009\tla2sany\StandardModules\Integers.tla
+Parsing file C:\Users\HP\Desktop\Distributed Systems\tla+\toolbox\plugins\org.lamport.tlatools_1.0.0.201907102009\tla2sany\StandardModules\Sequences.tla
+Parsing file C:\Users\HP\Desktop\Distributed Systems\tla+\toolbox\plugins\org.lamport.tlatools_1.0.0.201907102009\tla2sany\StandardModules\FiniteSets.tla
+Parsing file C:\Users\HP\Desktop\Distributed Systems\tla+\toolbox\plugins\org.lamport.tlatools_1.0.0.201907102009\tla2sany\StandardModules\Naturals.tla
+Semantic processing of module Naturals
+Semantic processing of module Integers
+Semantic processing of module Sequences
+Semantic processing of module FiniteSets
+Semantic processing of module TLC
+Semantic processing of module BenOr
+Semantic processing of module MC
+@!@!@STARTMSG 2219:0 @!@!@
+SANY finished.
+@!@!@ENDMSG 2219 @!@!@
+@!@!@STARTMSG 2185:0 @!@!@
+Starting... (2019-11-27 16:11:53)
+@!@!@ENDMSG 2185 @!@!@
+@!@!@STARTMSG 2189:0 @!@!@
+Computing initial states...
+@!@!@ENDMSG 2189 @!@!@
+@!@!@STARTMSG 2190:0 @!@!@
+Finished computing initial states: 1 distinct state generated at 2019-11-27 16:11:55.
+@!@!@ENDMSG 2190 @!@!@
+@!@!@STARTMSG 2114:1 @!@!@
+Deadlock reached.
+@!@!@ENDMSG 2114 @!@!@
+@!@!@STARTMSG 2121:1 @!@!@
+The behavior up to this point is:
+@!@!@ENDMSG 2121 @!@!@
+@!@!@STARTMSG 2217:4 @!@!@
+1: <Initial predicate>
+/\ decided = <<-1, -1, -1, -1>>
+/\ p1v = <<0, 0, 1, 1>>
+/\ p2v = <<-1, -1, -1, -1>>
+/\ p2Msg = {}
+/\ p1Msg = {}
+/\ r = <<1, 1, 1, 1>>
+/\ pc = <<"broadcast", "broadcast", "broadcast", "broadcast">>
+/\ DBCollectP1Msgs = {}
+
+@!@!@ENDMSG 2217 @!@!@
+@!@!@STARTMSG 2217:4 @!@!@
+2: <broadcast line 116, col 20 to line 121, col 45 of module BenOr>
+/\ decided = <<-1, -1, -1, -1>>
+/\ p1v = <<0, 0, 1, 1>>
+/\ p2v = <<-1, -1, -1, -1>>
+/\ p2Msg = {}
+/\ p1Msg = {}
+/\ r = <<1, 1, 1, 1>>
+/\ pc = <<"broadcast", "P1S", "broadcast", "broadcast">>
+/\ DBCollectP1Msgs = {}
+
+@!@!@ENDMSG 2217 @!@!@
+@!@!@STARTMSG 2217:4 @!@!@
+3: <broadcast line 116, col 20 to line 121, col 45 of module BenOr>
+/\ decided = <<-1, -1, -1, -1>>
+/\ p1v = <<0, 0, 1, 1>>
+/\ p2v = <<-1, -1, -1, -1>>
+/\ p2Msg = {}
+/\ p1Msg = {}
+/\ r = <<1, 1, 1, 1>>
+/\ pc = <<"P1S", "P1S", "broadcast", "broadcast">>
+/\ DBCollectP1Msgs = {}
+
+@!@!@ENDMSG 2217 @!@!@
+@!@!@STARTMSG 2217:4 @!@!@
+4: <P1S line 123, col 14 to line 126, col 76 of module BenOr>
+/\ decided = <<-1, -1, -1, -1>>
+/\ p1v = <<0, 0, 1, 1>>
+/\ p2v = <<-1, -1, -1, -1>>
+/\ p2Msg = {}
+/\ p1Msg = {[value |-> 0, round |-> 1, nodeid |-> 1]}
+/\ r = <<1, 1, 1, 1>>
+/\ pc = <<"P1R", "P1S", "broadcast", "broadcast">>
+/\ DBCollectP1Msgs = {}
+
+@!@!@ENDMSG 2217 @!@!@
+@!@!@STARTMSG 2217:4 @!@!@
+5: <P1S line 123, col 14 to line 126, col 76 of module BenOr>
+/\ decided = <<-1, -1, -1, -1>>
+/\ p1v = <<0, 0, 1, 1>>
+/\ p2v = <<-1, -1, -1, -1>>
+/\ p2Msg = {}
+/\ p1Msg = { [value |-> 0, round |-> 1, nodeid |-> 1],
+  [value |-> 0, round |-> 1, nodeid |-> 2] }
+/\ r = <<1, 1, 1, 1>>
+/\ pc = <<"P1R", "P1R", "broadcast", "broadcast">>
+/\ DBCollectP1Msgs = {}
+
+@!@!@ENDMSG 2217 @!@!@
+@!@!@STARTMSG 2217:4 @!@!@
+6: <broadcast line 116, col 20 to line 121, col 45 of module BenOr>
+/\ decided = <<-1, -1, -1, -1>>
+/\ p1v = <<0, 0, 1, 1>>
+/\ p2v = <<-1, -1, -1, -1>>
+/\ p2Msg = {}
+/\ p1Msg = { [value |-> 0, round |-> 1, nodeid |-> 1],
+  [value |-> 0, round |-> 1, nodeid |-> 2] }
+/\ r = <<1, 1, 1, 1>>
+/\ pc = <<"P1R", "P1R", "P1S", "broadcast">>
+/\ DBCollectP1Msgs = {}
+
+@!@!@ENDMSG 2217 @!@!@
+@!@!@STARTMSG 2217:4 @!@!@
+7: <P1S line 123, col 14 to line 126, col 76 of module BenOr>
+/\ decided = <<-1, -1, -1, -1>>
+/\ p1v = <<0, 0, 1, 1>>
+/\ p2v = <<-1, -1, -1, -1>>
+/\ p2Msg = {}
+/\ p1Msg = { [value |-> 0, round |-> 1, nodeid |-> 1],
+  [value |-> 0, round |-> 1, nodeid |-> 2],
+  [value |-> 1, round |-> 1, nodeid |-> 3] }
+/\ r = <<1, 1, 1, 1>>
+/\ pc = <<"P1R", "P1R", "P1R", "broadcast">>
+/\ DBCollectP1Msgs = {}
+
+@!@!@ENDMSG 2217 @!@!@
+@!@!@STARTMSG 2217:4 @!@!@
+8: <broadcast line 116, col 20 to line 121, col 45 of module BenOr>
+/\ decided = <<-1, -1, -1, -1>>
+/\ p1v = <<0, 0, 1, 1>>
+/\ p2v = <<-1, -1, -1, -1>>
+/\ p2Msg = {}
+/\ p1Msg = { [value |-> 0, round |-> 1, nodeid |-> 1],
+  [value |-> 0, round |-> 1, nodeid |-> 2],
+  [value |-> 1, round |-> 1, nodeid |-> 3] }
+/\ r = <<1, 1, 1, 1>>
+/\ pc = <<"P1R", "P1R", "P1R", "P1S">>
+/\ DBCollectP1Msgs = {}
+
+@!@!@ENDMSG 2217 @!@!@
+@!@!@STARTMSG 2217:4 @!@!@
+9: <P1S line 123, col 14 to line 126, col 76 of module BenOr>
+/\ decided = <<-1, -1, -1, -1>>
+/\ p1v = <<0, 0, 1, 1>>
+/\ p2v = <<-1, -1, -1, -1>>
+/\ p2Msg = {}
+/\ p1Msg = { [value |-> 0, round |-> 1, nodeid |-> 1],
+  [value |-> 0, round |-> 1, nodeid |-> 2],
+  [value |-> 1, round |-> 1, nodeid |-> 3],
+  [value |-> 1, round |-> 1, nodeid |-> 4] }
+/\ r = <<1, 1, 1, 1>>
+/\ pc = <<"P1R", "P1R", "P1R", "P1R">>
+/\ DBCollectP1Msgs = {}
+
+@!@!@ENDMSG 2217 @!@!@
+@!@!@STARTMSG 2201:0 @!@!@
+The coverage statistics at 2019-11-27 16:11:55
+@!@!@ENDMSG 2201 @!@!@
+@!@!@STARTMSG 2773:0 @!@!@
+<Init line 105, col 1 to line 105, col 4 of module BenOr>: 2:2
+@!@!@ENDMSG 2773 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 106, col 9 to line 114, col 50 of module BenOr: 2
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2772:0 @!@!@
+<broadcast line 116, col 1 to line 116, col 15 of module BenOr>: 37:113
+@!@!@ENDMSG 2772 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 116, col 23 to line 116, col 44 of module BenOr: 457
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  |line 116, col 23 to line 116, col 30 of module BenOr: 344
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 117, col 26 to line 117, col 42 of module BenOr: 113
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 118, col 31 to line 118, col 66 of module BenOr: 113
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 119, col 34 to line 119, col 67 of module BenOr: 0
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 120, col 23 to line 121, col 45 of module BenOr: 113
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2772:0 @!@!@
+<P1S line 123, col 1 to line 123, col 9 of module BenOr>: 43:112
+@!@!@ENDMSG 2772 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 123, col 17 to line 123, col 32 of module BenOr: 452
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  |line 123, col 17 to line 123, col 24 of module BenOr: 340
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 124, col 17 to line 124, col 99 of module BenOr: 112
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 125, col 17 to line 125, col 49 of module BenOr: 112
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 126, col 17 to line 126, col 76 of module BenOr: 112
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2772:0 @!@!@
+<P1R line 128, col 1 to line 128, col 9 of module BenOr>: 0:0
+@!@!@ENDMSG 2772 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 128, col 17 to line 128, col 32 of module BenOr: 336
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 129, col 18 to line 129, col 52 of module BenOr: 119
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  |line 129, col 30 to line 129, col 51 of module BenOr: 119
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  ||line 94, col 21 to line 94, col 48 of module BenOr: 119
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  |||line 94, col 36 to line 94, col 46 of module BenOr: 243
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  |||line 94, col 28 to line 94, col 32 of module BenOr: 119
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  ||line 129, col 44 to line 129, col 50 of module BenOr: 119
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 129, col 56 to line 129, col 60 of module BenOr: 119
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 136, col 17 to line 136, col 49 of module BenOr: 0
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 137, col 17 to line 138, col 39 of module BenOr: 0
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2772:0 @!@!@
+<P2S line 140, col 1 to line 140, col 9 of module BenOr>: 0:0
+@!@!@ENDMSG 2772 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 140, col 17 to line 140, col 32 of module BenOr: 336
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 141, col 17 to line 141, col 99 of module BenOr: 0
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 142, col 17 to line 142, col 53 of module BenOr: 0
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 143, col 17 to line 143, col 55 of module BenOr: 0
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 144, col 17 to line 144, col 73 of module BenOr: 0
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2772:0 @!@!@
+<Terminating line 149, col 1 to line 149, col 11 of module BenOr>: 0:0
+@!@!@ENDMSG 2772 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 149, col 19 to line 149, col 56 of module BenOr: 81
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 150, col 19 to line 150, col 32 of module BenOr: 0
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2202:0 @!@!@
+End of statistics.
+@!@!@ENDMSG 2202 @!@!@
+@!@!@STARTMSG 2200:0 @!@!@
+Progress(9) at 2019-11-27 16:11:55: 217 states generated (3,706 s/min), 81 distinct states found (1,383 ds/min), 0 states left on queue.
+@!@!@ENDMSG 2200 @!@!@
+@!@!@STARTMSG 2199:0 @!@!@
+217 states generated, 81 distinct states found, 0 states left on queue.
+@!@!@ENDMSG 2199 @!@!@
+@!@!@STARTMSG 2194:0 @!@!@
+The depth of the complete state graph search is 9.
+@!@!@ENDMSG 2194 @!@!@
+@!@!@STARTMSG 2268:0 @!@!@
+The average outdegree of the complete state graph is 1 (minimum is 0, the maximum 4 and the 95th percentile is 3).
+@!@!@ENDMSG 2268 @!@!@
+@!@!@STARTMSG 2186:0 @!@!@
+Finished in 3924ms at (2019-11-27 16:11:55)
+@!@!@ENDMSG 2186 @!@!@

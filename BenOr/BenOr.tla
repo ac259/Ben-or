@@ -1,6 +1,4 @@
 ----------------------- MODULE BenOr----------------------------
-(*\* BenOr algorithm *)
-(*\* Copr. (c) Ani & Pratik, Nov 22, 2019 *)
 EXTENDS Integers, TLC, Sequences, FiniteSets
 CONSTANT N, F, MAXROUND, INPUT
 \* \* N Nodes, F Failures
@@ -10,19 +8,25 @@ Procs == 1..N
 (*
     --algorithm BenOr
     {
-        variable p1Msg = {}, p2Msg = {},DBCollectP1Msgs={};
+        variable p1Msg = {}, p2Msg = {}, DBCollectP1Msgs={};
         
         define
         {
             ExtractValSet(S) == {m.value: m \in S}
             CollectP1Msgs(r) == {m \in p1Msg: (m.round = r)}
+            CollectP2Msgs(r) == {m \in p2Msg: (m.round = r)}
             \*\* A(t,r) == {CHOOSE x \in CollectP1Msgs(r): 1..(N-F)} 
+            ValueMsg(r,v) ==  {m \in p1Msg: (m.round = r) /\ (m.value = v)}
+            ValueMsgP2(r,v) ==  {m \in p2Msg: (m.round = r) /\ (m.value = v)}
+            
         }
 
         macro SendP1(r,i)
         {
             \* \* Sends initial value i
-            p1Msg := p1Msg \union {[nodeid |-> self, round |-> r, value |-> i]}
+            \*print(i);
+            p1Msg := p1Msg \union {[nodeid |-> self, round |-> r, value |-> i]};
+            
         }
         
         macro RvcP1(r)
@@ -30,24 +34,69 @@ Procs == 1..N
         (*\* This function deadlocks since I am using = to compare, ideally it should be >=
         But the algorithm would need to find first n-f elements in the next line which I am not able to do
         *)
-            await (Cardinality(CollectP1Msgs(r)) = N-F);
+            await (Cardinality(CollectP1Msgs(r)) >= N - F);
             \*\* DBCollectP1Msgs := DBCollectP1Msgs \union {[C |-> Cardinality(CollectP1Msgs(r)), M |-> CollectP1Msgs(r)]};
             \* \* The above statement gives A which is first N-F messages received
             \* \* Need to get the values from the messages out and determine if all are same
-            if (\E v \in {0,1}: \A a \in ExtractValSet(CollectP1Msgs(r)): a = v)
-                {
-                    if (ExtractValSet(CollectP1Msgs(r)) \intersect {1} = {1})
-                        p2v := 1;
-                    else
-                        p2v := 0;
-                }
-            
+           
+            \* print("inside recieve");
+            if ((Cardinality(CollectP1Msgs(r))*2 > N) /\ (Cardinality(ValueMsg(r,1)) > Cardinality(ValueMsg(r,0)))){
+            p2v := 1;
+            \* print("1");
+            }
+            else if ((Cardinality(CollectP1Msgs(r))*2 > N) /\ (Cardinality(ValueMsg(r,0)) > Cardinality(ValueMsg(r,1)))) {
+            \*  print("0");
+            p2v := 0;
+            }
+            else{
+            \* print("-1");
+            p2v := -1;
+            }
+            (* This condition is not working correctly as if the messages
+            that make it through are <<0,0,1,1>> assuming for simplicity no failures
+            it should return -1 
+            else {
+            print("-1");
+            };
+            *)
         }
-        
+     
          macro SendP2(r,i)
         {
             \* \* Sends initial value i
             p2Msg := p2Msg \union {[nodeid |-> self, round |-> r, value |-> i]}
+        }
+        
+        macro RvcP2(r)
+        {
+        (*\* This function deadlocks since I am using = to compare, ideally it should be >=
+        But the algorithm would need to find first n-f elements in the next line which I am not able to do
+        *)
+            await (Cardinality(CollectP2Msgs(r)) >= N - F);
+            \*\* DBCollectP1Msgs := DBCollectP1Msgs \union {[C |-> Cardinality(CollectP1Msgs(r)), M |-> CollectP1Msgs(r)]};
+            \* \* The above statement gives A which is first N-F messages received
+            \* \* Need to get the values from the messages out and determine if all are same
+           
+            \* print("inside recieve");
+            if ((Cardinality(Value)*2 > N) /\ (Cardinality(ValueMsg(r,1)) > Cardinality(ValueMsg(r,0)))){
+            p2v := 1;
+            \* print("1");
+            }
+            else if ((Cardinality(CollectP2Msgs(r))*2 > N) /\ (Cardinality(ValueMsg(r,0)) > Cardinality(ValueMsg(r,1)))) {
+            \*  print("0");
+            p2v := 0;
+            }
+            else{
+            \* print("-1");
+            p2v := -1;
+            }
+            (* This condition is not working correctly as if the messages
+            that make it through are <<0,0,1,1>> assuming for simplicity no failures
+            it should return -1 
+            else {
+            print("-1");
+            };
+            *)
         }
         
         fair process (p \in Procs)
@@ -79,6 +128,9 @@ VARIABLES p1Msg, p2Msg, DBCollectP1Msgs, pc
 ExtractValSet(S) == {m.value: m \in S}
 CollectP1Msgs(r) == {m \in p1Msg: (m.round = r)}
 
+
+ValueMsg(r,v) ==  {m \in p1Msg: (m.round = r) /\ (m.value = v)}
+
 VARIABLES r, p1v, p2v, decided
 
 vars == << p1Msg, p2Msg, DBCollectP1Msgs, pc, r, p1v, p2v, decided >>
@@ -109,13 +161,15 @@ P1S(self) == /\ pc[self] = "P1S"
              /\ UNCHANGED << p2Msg, DBCollectP1Msgs, r, p1v, p2v, decided >>
 
 P1R(self) == /\ pc[self] = "P1R"
-             /\ (Cardinality(CollectP1Msgs(r[self])) >= N-F)
-             /\ IF \E v \in {0,1}: \A a \in ExtractValSet(CollectP1Msgs(r[self])): a = v
-                   THEN /\ IF ExtractValSet(CollectP1Msgs(r[self])) \intersect {1} = {1}
-                              THEN /\ p2v' = [p2v EXCEPT ![self] = 1]
-                              ELSE /\ p2v' = [p2v EXCEPT ![self] = 0]
-                   ELSE /\ TRUE
-                        /\ p2v' = p2v
+             /\ (Cardinality(CollectP1Msgs(r[self])) >= N - F)
+             /\ IF (Cardinality(CollectP1Msgs(r[self]))*2 > N) /\ (Cardinality(ValueMsg(r[self],1)) > Cardinality(ValueMsg(r[self],0)))
+                   THEN /\ p2v' = [p2v EXCEPT ![self] = 1]
+                        /\ PrintT(("1"))
+                   ELSE /\ IF (Cardinality(CollectP1Msgs(r[self]))*2 > N) /\ (Cardinality(ValueMsg(r[self],0)) > Cardinality(ValueMsg(r[self],1)))
+                              THEN /\ PrintT(("0"))
+                                   /\ p2v' = [p2v EXCEPT ![self] = 0]
+                              ELSE /\ PrintT(("-1"))
+                                   /\ p2v' = [p2v EXCEPT ![self] = -1]
              /\ pc' = [pc EXCEPT ![self] = "P2S"]
              /\ UNCHANGED << p1Msg, p2Msg, DBCollectP1Msgs, r, p1v, decided >>
 
