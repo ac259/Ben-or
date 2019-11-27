@@ -80,8 +80,10 @@ Procs == 1..N
             \* print("inside recieve");
             if (Cardinality(ValueMsgP2(r,1)) >= F+1 ){
             decided := 1;
+            print("1");
             }
             else if (Cardinality(ValueMsgP2(r,0)) >= F+1) {
+            print("0");
             decided := 0;
             };
             if ((Cardinality(ValueMsgP2(r,-1)) >=1) /\ (Cardinality(ValueMsgP2(r,0)) >0) ){
@@ -92,10 +94,11 @@ Procs == 1..N
             }
             else if ((Cardinality(ValueMsgP2(r,-1)) >=1)){
             with (v \in {0,1}){
+                print "Inside with";
                 p1v := v;
             };
-            };
-            print decided;
+            }
+            
             (* This condition is not working correctly as if the messages
             that make it through are <<0,0,1,1>> assuming for simplicity no failures
             it should return -1 
@@ -187,20 +190,19 @@ P2R(self) == /\ pc[self] = "P2R"
              /\ (Cardinality(CollectP2Msgs(r[self])) >= N - F)
              /\ IF Cardinality(ValueMsgP2(r[self],1)) >= F+1
                    THEN /\ decided' = [decided EXCEPT ![self] = 1]
+                        /\ PrintT(("1"))
                    ELSE /\ IF Cardinality(ValueMsgP2(r[self],0)) >= F+1
-                              THEN /\ decided' = [decided EXCEPT ![self] = 0]
+                              THEN /\ PrintT(("0"))
+                                   /\ decided' = [decided EXCEPT ![self] = 0]
                               ELSE /\ TRUE
                                    /\ UNCHANGED decided
              /\ IF (Cardinality(ValueMsgP2(r[self],-1)) >=1) /\ (Cardinality(ValueMsgP2(r[self],0)) >0)
                    THEN /\ p1v' = [p1v EXCEPT ![self] = 0]
                    ELSE /\ IF (Cardinality(ValueMsgP2(r[self],-1)) >=1) /\ (Cardinality(ValueMsgP2(r[self],1)) >0)
                               THEN /\ p1v' = [p1v EXCEPT ![self] = 1]
-                              ELSE /\ IF (Cardinality(ValueMsgP2(r[self],-1)) >=1)
-                                         THEN /\ \E v \in {0,1}:
-                                                   p1v' = [p1v EXCEPT ![self] = v]
-                                         ELSE /\ TRUE
-                                              /\ p1v' = p1v
-             /\ PrintT(decided'[self])
+                              ELSE /\ \E v \in {0,1}:
+                                        /\ PrintT("Inside with")
+                                        /\ p1v' = [p1v EXCEPT ![self] = v]
              /\ r' = [r EXCEPT ![self] = r[self] + 1]
              /\ pc' = [pc EXCEPT ![self] = "broadcast"]
              /\ UNCHANGED << p1Msg, p2Msg, DBCollectP1Msgs, p2v >>
