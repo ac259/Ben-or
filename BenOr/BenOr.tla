@@ -8,7 +8,7 @@ Procs == 1..N
 (*
     --fair algorithm BenOr
     {
-        variable p1Msg = {}, p2Msg = {}, DBCollectP1Msgs={};
+        variable p1Msg = {}, p2Msg = {};
         
         define
         {
@@ -131,7 +131,7 @@ Procs == 1..N
     }
 *)
 \* BEGIN TRANSLATION
-VARIABLES p1Msg, p2Msg, DBCollectP1Msgs, pc
+VARIABLES p1Msg, p2Msg, pc
 
 (* define statement *)
 ExtractValSet(S) == {m.value: m \in S}
@@ -143,14 +143,13 @@ ValueMsgP2(r,v) ==  {m \in p2Msg: (m.round = r) /\ (m.value = v)}
 
 VARIABLES r, p1v, p2v, decided
 
-vars == << p1Msg, p2Msg, DBCollectP1Msgs, pc, r, p1v, p2v, decided >>
+vars == << p1Msg, p2Msg, pc, r, p1v, p2v, decided >>
 
 ProcSet == (Procs)
 
 Init == (* Global variables *)
         /\ p1Msg = {}
         /\ p2Msg = {}
-        /\ DBCollectP1Msgs = {}
         (* Process p *)
         /\ r = [self \in Procs |-> 1]
         /\ p1v = [self \in Procs |-> INPUT[self]]
@@ -162,13 +161,12 @@ entry(self) == /\ pc[self] = "entry"
                /\ IF r[self] <MAXROUND
                      THEN /\ pc' = [pc EXCEPT ![self] = "P1S"]
                      ELSE /\ pc' = [pc EXCEPT ![self] = "Done"]
-               /\ UNCHANGED << p1Msg, p2Msg, DBCollectP1Msgs, r, p1v, p2v, 
-                               decided >>
+               /\ UNCHANGED << p1Msg, p2Msg, r, p1v, p2v, decided >>
 
 P1S(self) == /\ pc[self] = "P1S"
              /\ p1Msg' = (p1Msg \union {[nodeid |-> self, round |-> r[self], value |-> p1v[self]]})
              /\ pc' = [pc EXCEPT ![self] = "P1R"]
-             /\ UNCHANGED << p2Msg, DBCollectP1Msgs, r, p1v, p2v, decided >>
+             /\ UNCHANGED << p2Msg, r, p1v, p2v, decided >>
 
 P1R(self) == /\ pc[self] = "P1R"
              /\ (Cardinality(CollectP1Msgs(r[self])) >= N - F)
@@ -178,12 +176,12 @@ P1R(self) == /\ pc[self] = "P1R"
                               THEN /\ p2v' = [p2v EXCEPT ![self] = 0]
                               ELSE /\ p2v' = [p2v EXCEPT ![self] = -1]
              /\ pc' = [pc EXCEPT ![self] = "P2S"]
-             /\ UNCHANGED << p1Msg, p2Msg, DBCollectP1Msgs, r, p1v, decided >>
+             /\ UNCHANGED << p1Msg, p2Msg, r, p1v, decided >>
 
 P2S(self) == /\ pc[self] = "P2S"
              /\ p2Msg' = (p2Msg \union {[nodeid |-> self, round |-> r[self], value |-> p2v[self]]})
              /\ pc' = [pc EXCEPT ![self] = "P2R"]
-             /\ UNCHANGED << p1Msg, DBCollectP1Msgs, r, p1v, p2v, decided >>
+             /\ UNCHANGED << p1Msg, r, p1v, p2v, decided >>
 
 P2R(self) == /\ pc[self] = "P2R"
              /\ (Cardinality(CollectP2Msgs(r[self])) >= N - F)
@@ -204,7 +202,7 @@ P2R(self) == /\ pc[self] = "P2R"
                                               /\ p1v' = p1v
              /\ r' = [r EXCEPT ![self] = r[self] + 1]
              /\ pc' = [pc EXCEPT ![self] = "entry"]
-             /\ UNCHANGED << p1Msg, p2Msg, DBCollectP1Msgs, p2v >>
+             /\ UNCHANGED << p1Msg, p2Msg, p2v >>
 
 p(self) == entry(self) \/ P1S(self) \/ P1R(self) \/ P2S(self) \/ P2R(self)
 
@@ -224,7 +222,7 @@ Termination == <>(\A self \in ProcSet: pc[self] = "Done")
 \* END TRANSLATION
 ---------------------------------------------------------------
 Agreement == (\A i,j \in Procs: decided[i] # -1 /\ decided[j] # -1 => decided[i] = decided[j])
-MinorityReport == (\A i,j \in Procs: decided[i] # -1 /\ decided[j] # -1 /\ decided[i] # 0 /\ decided[j] # 0 => ( decided[i] = decided[j]))
+MinorityReport == (\E j \in Procs: TRUE => (decided[j] = 1) \/ (decided[j] = -1))
 Progress == (\E j \in Procs: TRUE => <>(decided[j] # -1 ))
 BaitProgress == (\E j \in Procs: TRUE => (decided[j] = -1 ))
 ================================================================

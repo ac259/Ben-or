@@ -224,5 +224,7 @@ Termination == <>(\A self \in ProcSet: pc[self] = "Done")
 \* END TRANSLATION
 ---------------------------------------------------------------
 Agreement == (\A i,j \in Procs: decided[i] # -1 /\ decided[j] # -1 => decided[i] = decided[j])
-MinorityReport == (\A i,j \in Procs: decided[i] # -1 /\ decided[j] # -1 => decided[i] # 0 /\ decided[j] # 0 /\ ( decided[i] = decided[j]))
+MinorityReport == (\A i,j \in Procs: decided[i] # -1 /\ decided[j] # -1 /\ decided[i] # 0 /\ decided[j] # 0 => ( decided[i] = decided[j]))
+Progress == (\E j \in Procs: TRUE => <>(decided[j] # -1 ))
+BaitProgress == (\E j \in Procs: TRUE => (decided[j] = -1 ))
 ================================================================
