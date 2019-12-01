@@ -2,29 +2,29 @@
 EXTENDS BenOr, TLC
 
 \* CONSTANT definitions @modelParameterConstants:0F
-const_1575233303208292000 == 
+const_157523160431292000 == 
 0
 ----
 
 \* CONSTANT definitions @modelParameterConstants:1N
-const_1575233303208293000 == 
+const_157523160431293000 == 
 4
 ----
 
 \* CONSTANT definitions @modelParameterConstants:2MAXROUND
-const_1575233303208294000 == 
+const_157523160431294000 == 
 4
 ----
 
 \* CONSTANT definitions @modelParameterConstants:3INPUT
-const_1575233303208295000 == 
-<<1,1,0,0>>
+const_157523160431295000 == 
+<<1,1,1,1>>
 ----
 
 \* INVARIANT definition @modelCorrectnessInvariants:0
-inv_1575233303208296000 ==
-(\E j \in Procs: TRUE => (decided[j] = -1 ))
+inv_157523160431296000 ==
+(\A i,j \in Procs: pc[i] = pc[j]=> decided[i] = -1 /\ decided[j] = -1)
 ----
 =============================================================================
 \* Modification History
-\* Created Sun Dec 01 15:48:23 EST 2019 by pratik
+\* Created Sun Dec 01 15:20:04 EST 2019 by pratik
