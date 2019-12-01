@@ -193,9 +193,9 @@ P2R(self) == /\ pc[self] = "P2R"
                               THEN /\ decided' = [decided EXCEPT ![self] = 0]
                               ELSE /\ TRUE
                                    /\ UNCHANGED decided
-             /\ IF (Cardinality(ValueMsgP2(r[self],0)) >0)
+             /\ IF (Cardinality(ValueMsgP2(r[self],-1)) >=1) /\ (Cardinality(ValueMsgP2(r[self],0)) >0)
                    THEN /\ p1v' = [p1v EXCEPT ![self] = 0]
-                   ELSE /\ IF (Cardinality(ValueMsgP2(r[self],1)) >0)
+                   ELSE /\ IF (Cardinality(ValueMsgP2(r[self],-1)) >=1) /\ (Cardinality(ValueMsgP2(r[self],1)) >0)
                               THEN /\ p1v' = [p1v EXCEPT ![self] = 1]
                               ELSE /\ IF (Cardinality(ValueMsgP2(r[self],-1)) >=1)
                                          THEN /\ \E v \in {0,1}:
@@ -223,7 +223,5 @@ Termination == <>(\A self \in ProcSet: pc[self] = "Done")
 
 \* END TRANSLATION
 ---------------------------------------------------------------
-Agreement == (\A i,j \in Procs: decided[i] # -1 /\ decided[j] # -1 => decided[i] = decided[j])
-MinorityReport == (\A i,j \in Procs: decided[i] # -1 /\ decided[j] # -1 /\ decided[i] # 0 /\ decided[j] # 0 => ( decided[i] = decided[j]))
-Progress == (\A i,j \in Procs: \A q \in 1..MAXROUND: r[q] = MAXROUND /\ (decided[i] # -1) /\ (decided[j] # -1) => <> (decided[i] = decided[j] ))
+Agreement == (\A i,j \in Procs: r[i] = r[j] => decided[i] = decided[j])
 ================================================================

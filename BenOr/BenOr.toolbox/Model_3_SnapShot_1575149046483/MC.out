@@ -1,0 +1,697 @@
+@!@!@STARTMSG 2262:0 @!@!@
+TLC2 Version 2.14 of 10 July 2019
+@!@!@ENDMSG 2262 @!@!@
+@!@!@STARTMSG 2187:0 @!@!@
+Running breadth-first search Model-Checking with fp 46 and seed -3648112368287088275 with 6 workers on 12 cores with 1173MB heap and 2638MB offheap memory [pid: 3974] (Linux 5.0.0-36-generic amd64, AdoptOpenJDK 11.0.3 x86_64, OffHeapDiskFPSet, DiskStateQueue).
+@!@!@ENDMSG 2187 @!@!@
+@!@!@STARTMSG 2220:0 @!@!@
+Starting SANY...
+@!@!@ENDMSG 2220 @!@!@
+Parsing file /home/pratik/TLA-Plus/BenOr/BenOr.toolbox/Model_3/MC.tla
+Parsing file /home/pratik/TLA-Plus/BenOr/BenOr.toolbox/Model_3/BenOr.tla
+Parsing file /home/pratik/TLAToolbox-1.6.0-linux.gtk.x86_64/toolbox/plugins/org.lamport.tlatools_1.0.0.201907102009/tla2sany/StandardModules/TLC.tla
+Parsing file /home/pratik/TLAToolbox-1.6.0-linux.gtk.x86_64/toolbox/plugins/org.lamport.tlatools_1.0.0.201907102009/tla2sany/StandardModules/Integers.tla
+Parsing file /home/pratik/TLAToolbox-1.6.0-linux.gtk.x86_64/toolbox/plugins/org.lamport.tlatools_1.0.0.201907102009/tla2sany/StandardModules/Sequences.tla
+Parsing file /home/pratik/TLAToolbox-1.6.0-linux.gtk.x86_64/toolbox/plugins/org.lamport.tlatools_1.0.0.201907102009/tla2sany/StandardModules/FiniteSets.tla
+Parsing file /home/pratik/TLAToolbox-1.6.0-linux.gtk.x86_64/toolbox/plugins/org.lamport.tlatools_1.0.0.201907102009/tla2sany/StandardModules/Naturals.tla
+Semantic processing of module Naturals
+Semantic processing of module Integers
+Semantic processing of module Sequences
+Semantic processing of module FiniteSets
+Semantic processing of module TLC
+Semantic processing of module BenOr
+Semantic processing of module MC
+@!@!@STARTMSG 2219:0 @!@!@
+SANY finished.
+@!@!@ENDMSG 2219 @!@!@
+@!@!@STARTMSG 2185:0 @!@!@
+Starting... (2019-11-30 16:24:02)
+@!@!@ENDMSG 2185 @!@!@
+@!@!@STARTMSG 2189:0 @!@!@
+Computing initial states...
+@!@!@ENDMSG 2189 @!@!@
+@!@!@STARTMSG 2190:0 @!@!@
+Finished computing initial states: 1 distinct state generated at 2019-11-30 16:24:04.
+@!@!@ENDMSG 2190 @!@!@
+1
+@!@!@STARTMSG 2110:1 @!@!@
+Invariant inv_157514904037311000 is violated.
+@!@!@ENDMSG 2110 @!@!@
+@!@!@STARTMSG 2121:1 @!@!@
+The behavior up to this point is:
+@!@!@ENDMSG 2121 @!@!@
+@!@!@STARTMSG 2217:4 @!@!@
+1: <Initial predicate>
+/\ r = <<1, 1, 1, 1>>
+/\ p1v = <<1, 1, 1, 1>>
+/\ pc = <<"broadcast", "broadcast", "broadcast", "broadcast">>
+/\ p2v = <<-1, -1, -1, -1>>
+/\ p2Msg = {}
+/\ decided = <<-1, -1, -1, -1>>
+/\ p1Msg = {}
+/\ DBCollectP1Msgs = {}
+
+@!@!@ENDMSG 2217 @!@!@
+@!@!@STARTMSG 2217:4 @!@!@
+2: <broadcast line 159, col 20 to line 164, col 45 of module BenOr>
+/\ r = <<1, 1, 1, 1>>
+/\ p1v = <<1, 1, 1, 1>>
+/\ pc = <<"broadcast", "P1S", "broadcast", "broadcast">>
+/\ p2v = <<-1, -1, -1, -1>>
+/\ p2Msg = {}
+/\ decided = <<-1, -1, -1, -1>>
+/\ p1Msg = {}
+/\ DBCollectP1Msgs = {}
+
+@!@!@ENDMSG 2217 @!@!@
+@!@!@STARTMSG 2217:4 @!@!@
+3: <broadcast line 159, col 20 to line 164, col 45 of module BenOr>
+/\ r = <<1, 1, 1, 1>>
+/\ p1v = <<1, 1, 1, 1>>
+/\ pc = <<"P1S", "P1S", "broadcast", "broadcast">>
+/\ p2v = <<-1, -1, -1, -1>>
+/\ p2Msg = {}
+/\ decided = <<-1, -1, -1, -1>>
+/\ p1Msg = {}
+/\ DBCollectP1Msgs = {}
+
+@!@!@ENDMSG 2217 @!@!@
+@!@!@STARTMSG 2217:4 @!@!@
+4: <P1S line 166, col 14 to line 169, col 76 of module BenOr>
+/\ r = <<1, 1, 1, 1>>
+/\ p1v = <<1, 1, 1, 1>>
+/\ pc = <<"P1R", "P1S", "broadcast", "broadcast">>
+/\ p2v = <<-1, -1, -1, -1>>
+/\ p2Msg = {}
+/\ decided = <<-1, -1, -1, -1>>
+/\ p1Msg = {[value |-> 1, round |-> 1, nodeid |-> 1]}
+/\ DBCollectP1Msgs = {}
+
+@!@!@ENDMSG 2217 @!@!@
+@!@!@STARTMSG 2217:4 @!@!@
+5: <P1S line 166, col 14 to line 169, col 76 of module BenOr>
+/\ r = <<1, 1, 1, 1>>
+/\ p1v = <<1, 1, 1, 1>>
+/\ pc = <<"P1R", "P1R", "broadcast", "broadcast">>
+/\ p2v = <<-1, -1, -1, -1>>
+/\ p2Msg = {}
+/\ decided = <<-1, -1, -1, -1>>
+/\ p1Msg = { [value |-> 1, round |-> 1, nodeid |-> 1],
+  [value |-> 1, round |-> 1, nodeid |-> 2] }
+/\ DBCollectP1Msgs = {}
+
+@!@!@ENDMSG 2217 @!@!@
+@!@!@STARTMSG 2217:4 @!@!@
+6: <broadcast line 159, col 20 to line 164, col 45 of module BenOr>
+/\ r = <<1, 1, 1, 1>>
+/\ p1v = <<1, 1, 1, 1>>
+/\ pc = <<"P1R", "P1R", "P1S", "broadcast">>
+/\ p2v = <<-1, -1, -1, -1>>
+/\ p2Msg = {}
+/\ decided = <<-1, -1, -1, -1>>
+/\ p1Msg = { [value |-> 1, round |-> 1, nodeid |-> 1],
+  [value |-> 1, round |-> 1, nodeid |-> 2] }
+/\ DBCollectP1Msgs = {}
+
+@!@!@ENDMSG 2217 @!@!@
+@!@!@STARTMSG 2217:4 @!@!@
+7: <P1S line 166, col 14 to line 169, col 76 of module BenOr>
+/\ r = <<1, 1, 1, 1>>
+/\ p1v = <<1, 1, 1, 1>>
+/\ pc = <<"P1R", "P1R", "P1R", "broadcast">>
+/\ p2v = <<-1, -1, -1, -1>>
+/\ p2Msg = {}
+/\ decided = <<-1, -1, -1, -1>>
+/\ p1Msg = { [value |-> 1, round |-> 1, nodeid |-> 1],
+  [value |-> 1, round |-> 1, nodeid |-> 2],
+  [value |-> 1, round |-> 1, nodeid |-> 3] }
+/\ DBCollectP1Msgs = {}
+
+@!@!@ENDMSG 2217 @!@!@
+@!@!@STARTMSG 2217:4 @!@!@
+8: <broadcast line 159, col 20 to line 164, col 45 of module BenOr>
+/\ r = <<1, 1, 1, 1>>
+/\ p1v = <<1, 1, 1, 1>>
+/\ pc = <<"P1R", "P1R", "P1R", "P1S">>
+/\ p2v = <<-1, -1, -1, -1>>
+/\ p2Msg = {}
+/\ decided = <<-1, -1, -1, -1>>
+/\ p1Msg = { [value |-> 1, round |-> 1, nodeid |-> 1],
+  [value |-> 1, round |-> 1, nodeid |-> 2],
+  [value |-> 1, round |-> 1, nodeid |-> 3] }
+/\ DBCollectP1Msgs = {}
+
+@!@!@ENDMSG 2217 @!@!@
+@!@!@STARTMSG 2217:4 @!@!@
+9: <P1S line 166, col 14 to line 169, col 76 of module BenOr>
+/\ r = <<1, 1, 1, 1>>
+/\ p1v = <<1, 1, 1, 1>>
+/\ pc = <<"P1R", "P1R", "P1R", "P1R">>
+/\ p2v = <<-1, -1, -1, -1>>
+/\ p2Msg = {}
+/\ decided = <<-1, -1, -1, -1>>
+/\ p1Msg = { [value |-> 1, round |-> 1, nodeid |-> 1],
+  [value |-> 1, round |-> 1, nodeid |-> 2],
+  [value |-> 1, round |-> 1, nodeid |-> 3],
+  [value |-> 1, round |-> 1, nodeid |-> 4] }
+/\ DBCollectP1Msgs = {}
+
+@!@!@ENDMSG 2217 @!@!@
+@!@!@STARTMSG 2217:4 @!@!@
+10: <P1R line 171, col 14 to line 179, col 78 of module BenOr>
+/\ r = <<1, 1, 1, 1>>
+/\ p1v = <<1, 1, 1, 1>>
+/\ pc = <<"P2S", "P1R", "P1R", "P1R">>
+/\ p2v = <<1, -1, -1, -1>>
+/\ p2Msg = {}
+/\ decided = <<-1, -1, -1, -1>>
+/\ p1Msg = { [value |-> 1, round |-> 1, nodeid |-> 1],
+  [value |-> 1, round |-> 1, nodeid |-> 2],
+  [value |-> 1, round |-> 1, nodeid |-> 3],
+  [value |-> 1, round |-> 1, nodeid |-> 4] }
+/\ DBCollectP1Msgs = {}
+
+@!@!@ENDMSG 2217 @!@!@
+@!@!@STARTMSG 2217:4 @!@!@
+11: <P2S line 181, col 14 to line 184, col 76 of module BenOr>
+/\ r = <<1, 1, 1, 1>>
+/\ p1v = <<1, 1, 1, 1>>
+/\ pc = <<"P2R", "P1R", "P1R", "P1R">>
+/\ p2v = <<1, -1, -1, -1>>
+/\ p2Msg = {[value |-> 1, round |-> 1, nodeid |-> 1]}
+/\ decided = <<-1, -1, -1, -1>>
+/\ p1Msg = { [value |-> 1, round |-> 1, nodeid |-> 1],
+  [value |-> 1, round |-> 1, nodeid |-> 2],
+  [value |-> 1, round |-> 1, nodeid |-> 3],
+  [value |-> 1, round |-> 1, nodeid |-> 4] }
+/\ DBCollectP1Msgs = {}
+
+@!@!@ENDMSG 2217 @!@!@
+@!@!@STARTMSG 2217:4 @!@!@
+12: <P1R line 171, col 14 to line 179, col 78 of module BenOr>
+/\ r = <<1, 1, 1, 1>>
+/\ p1v = <<1, 1, 1, 1>>
+/\ pc = <<"P2R", "P2S", "P1R", "P1R">>
+/\ p2v = <<1, 1, -1, -1>>
+/\ p2Msg = {[value |-> 1, round |-> 1, nodeid |-> 1]}
+/\ decided = <<-1, -1, -1, -1>>
+/\ p1Msg = { [value |-> 1, round |-> 1, nodeid |-> 1],
+  [value |-> 1, round |-> 1, nodeid |-> 2],
+  [value |-> 1, round |-> 1, nodeid |-> 3],
+  [value |-> 1, round |-> 1, nodeid |-> 4] }
+/\ DBCollectP1Msgs = {}
+
+@!@!@ENDMSG 2217 @!@!@
+@!@!@STARTMSG 2217:4 @!@!@
+13: <P2S line 181, col 14 to line 184, col 76 of module BenOr>
+/\ r = <<1, 1, 1, 1>>
+/\ p1v = <<1, 1, 1, 1>>
+/\ pc = <<"P2R", "P2R", "P1R", "P1R">>
+/\ p2v = <<1, 1, -1, -1>>
+/\ p2Msg = { [value |-> 1, round |-> 1, nodeid |-> 1],
+  [value |-> 1, round |-> 1, nodeid |-> 2] }
+/\ decided = <<-1, -1, -1, -1>>
+/\ p1Msg = { [value |-> 1, round |-> 1, nodeid |-> 1],
+  [value |-> 1, round |-> 1, nodeid |-> 2],
+  [value |-> 1, round |-> 1, nodeid |-> 3],
+  [value |-> 1, round |-> 1, nodeid |-> 4] }
+/\ DBCollectP1Msgs = {}
+
+@!@!@ENDMSG 2217 @!@!@
+@!@!@STARTMSG 2217:4 @!@!@
+14: <P1R line 171, col 14 to line 179, col 78 of module BenOr>
+/\ r = <<1, 1, 1, 1>>
+/\ p1v = <<1, 1, 1, 1>>
+/\ pc = <<"P2R", "P2R", "P2S", "P1R">>
+/\ p2v = <<1, 1, 1, -1>>
+/\ p2Msg = { [value |-> 1, round |-> 1, nodeid |-> 1],
+  [value |-> 1, round |-> 1, nodeid |-> 2] }
+/\ decided = <<-1, -1, -1, -1>>
+/\ p1Msg = { [value |-> 1, round |-> 1, nodeid |-> 1],
+  [value |-> 1, round |-> 1, nodeid |-> 2],
+  [value |-> 1, round |-> 1, nodeid |-> 3],
+  [value |-> 1, round |-> 1, nodeid |-> 4] }
+/\ DBCollectP1Msgs = {}
+
+@!@!@ENDMSG 2217 @!@!@
+@!@!@STARTMSG 2217:4 @!@!@
+15: <P2S line 181, col 14 to line 184, col 76 of module BenOr>
+/\ r = <<1, 1, 1, 1>>
+/\ p1v = <<1, 1, 1, 1>>
+/\ pc = <<"P2R", "P2R", "P2R", "P1R">>
+/\ p2v = <<1, 1, 1, -1>>
+/\ p2Msg = { [value |-> 1, round |-> 1, nodeid |-> 1],
+  [value |-> 1, round |-> 1, nodeid |-> 2],
+  [value |-> 1, round |-> 1, nodeid |-> 3] }
+/\ decided = <<-1, -1, -1, -1>>
+/\ p1Msg = { [value |-> 1, round |-> 1, nodeid |-> 1],
+  [value |-> 1, round |-> 1, nodeid |-> 2],
+  [value |-> 1, round |-> 1, nodeid |-> 3],
+  [value |-> 1, round |-> 1, nodeid |-> 4] }
+/\ DBCollectP1Msgs = {}
+
+@!@!@ENDMSG 2217 @!@!@
+@!@!@STARTMSG 2217:4 @!@!@
+16: <P1R line 171, col 14 to line 179, col 78 of module BenOr>
+/\ r = <<1, 1, 1, 1>>
+/\ p1v = <<1, 1, 1, 1>>
+/\ pc = <<"P2R", "P2R", "P2R", "P2S">>
+/\ p2v = <<1, 1, 1, 1>>
+/\ p2Msg = { [value |-> 1, round |-> 1, nodeid |-> 1],
+  [value |-> 1, round |-> 1, nodeid |-> 2],
+  [value |-> 1, round |-> 1, nodeid |-> 3] }
+/\ decided = <<-1, -1, -1, -1>>
+/\ p1Msg = { [value |-> 1, round |-> 1, nodeid |-> 1],
+  [value |-> 1, round |-> 1, nodeid |-> 2],
+  [value |-> 1, round |-> 1, nodeid |-> 3],
+  [value |-> 1, round |-> 1, nodeid |-> 4] }
+/\ DBCollectP1Msgs = {}
+
+@!@!@ENDMSG 2217 @!@!@
+@!@!@STARTMSG 2217:4 @!@!@
+17: <P2S line 181, col 14 to line 184, col 76 of module BenOr>
+/\ r = <<1, 1, 1, 1>>
+/\ p1v = <<1, 1, 1, 1>>
+/\ pc = <<"P2R", "P2R", "P2R", "P2R">>
+/\ p2v = <<1, 1, 1, 1>>
+/\ p2Msg = { [value |-> 1, round |-> 1, nodeid |-> 1],
+  [value |-> 1, round |-> 1, nodeid |-> 2],
+  [value |-> 1, round |-> 1, nodeid |-> 3],
+  [value |-> 1, round |-> 1, nodeid |-> 4] }
+/\ decided = <<-1, -1, -1, -1>>
+/\ p1Msg = { [value |-> 1, round |-> 1, nodeid |-> 1],
+  [value |-> 1, round |-> 1, nodeid |-> 2],
+  [value |-> 1, round |-> 1, nodeid |-> 3],
+  [value |-> 1, round |-> 1, nodeid |-> 4] }
+/\ DBCollectP1Msgs = {}
+
+@!@!@ENDMSG 2217 @!@!@
+1
+@!@!@STARTMSG 2217:4 @!@!@
+18: <P2R line 186, col 14 to line 206, col 66 of module BenOr>
+/\ r = <<2, 1, 1, 1>>
+/\ p1v = <<1, 1, 1, 1>>
+/\ pc = <<"broadcast", "P2R", "P2R", "P2R">>
+/\ p2v = <<1, 1, 1, 1>>
+/\ p2Msg = { [value |-> 1, round |-> 1, nodeid |-> 1],
+  [value |-> 1, round |-> 1, nodeid |-> 2],
+  [value |-> 1, round |-> 1, nodeid |-> 3],
+  [value |-> 1, round |-> 1, nodeid |-> 4] }
+/\ decided = <<1, -1, -1, -1>>
+/\ p1Msg = { [value |-> 1, round |-> 1, nodeid |-> 1],
+  [value |-> 1, round |-> 1, nodeid |-> 2],
+  [value |-> 1, round |-> 1, nodeid |-> 3],
+  [value |-> 1, round |-> 1, nodeid |-> 4] }
+/\ DBCollectP1Msgs = {}
+
+@!@!@ENDMSG 2217 @!@!@
+@!@!@STARTMSG 2201:0 @!@!@
+The coverage statistics at 2019-11-30 16:24:04
+@!@!@ENDMSG 2201 @!@!@
+@!@!@STARTMSG 2773:0 @!@!@
+<Init line 148, col 1 to line 148, col 4 of module BenOr>: 2:2
+@!@!@ENDMSG 2773 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 149, col 9 to line 157, col 50 of module BenOr: 2
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2772:0 @!@!@
+<broadcast line 159, col 1 to line 159, col 15 of module BenOr>: 41:113
+@!@!@ENDMSG 2772 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 159, col 23 to line 159, col 44 of module BenOr: 795
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  |line 159, col 23 to line 159, col 30 of module BenOr: 682
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 160, col 26 to line 160, col 42 of module BenOr: 113
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 161, col 31 to line 161, col 66 of module BenOr: 113
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 162, col 34 to line 162, col 67 of module BenOr: 0
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 163, col 23 to line 164, col 45 of module BenOr: 113
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2772:0 @!@!@
+<P1S line 166, col 1 to line 166, col 9 of module BenOr>: 39:112
+@!@!@ENDMSG 2772 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 166, col 17 to line 166, col 32 of module BenOr: 790
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  |line 166, col 17 to line 166, col 24 of module BenOr: 678
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 167, col 17 to line 167, col 99 of module BenOr: 112
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 168, col 17 to line 168, col 49 of module BenOr: 112
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 169, col 17 to line 169, col 76 of module BenOr: 112
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2772:0 @!@!@
+<P1R line 171, col 1 to line 171, col 9 of module BenOr>: 40:112
+@!@!@ENDMSG 2772 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 171, col 17 to line 171, col 32 of module BenOr: 786
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  |line 171, col 17 to line 171, col 24 of module BenOr: 674
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 172, col 18 to line 172, col 61 of module BenOr: 112
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  |line 172, col 18 to line 172, col 52 of module BenOr: 227
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  ||line 172, col 30 to line 172, col 51 of module BenOr: 227
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  |||line 136, col 21 to line 136, col 48 of module BenOr: 227
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  ||||line 136, col 36 to line 136, col 46 of module BenOr: 675
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  ||||line 136, col 28 to line 136, col 32 of module BenOr: 227
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  |||line 172, col 44 to line 172, col 50 of module BenOr: 227
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  |line 172, col 57 to line 172, col 61 of module BenOr: 227
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 173, col 20 to line 173, col 135 of module BenOr: 112
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  |line 173, col 21 to line 173, col 61 of module BenOr: 112
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  ||line 173, col 21 to line 173, col 57 of module BenOr: 112
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  |||line 173, col 21 to line 173, col 55 of module BenOr: 112
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  ||||line 173, col 33 to line 173, col 54 of module BenOr: 112
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  |||||line 136, col 21 to line 136, col 48 of module BenOr: 112
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  ||||||line 136, col 36 to line 136, col 46 of module BenOr: 448
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  ||||||line 136, col 28 to line 136, col 32 of module BenOr: 112
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  |||||line 173, col 47 to line 173, col 53 of module BenOr: 112
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  ||line 173, col 61 to line 173, col 61 of module BenOr: 112
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  |line 173, col 68 to line 173, col 134 of module BenOr: 112
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  ||line 173, col 68 to line 173, col 99 of module BenOr: 112
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  |||line 173, col 80 to line 173, col 98 of module BenOr: 112
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  ||||line 139, col 19 to line 139, col 63 of module BenOr: 112
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  |||||line 139, col 33 to line 139, col 62 of module BenOr: 448
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  |||||line 139, col 26 to line 139, col 30 of module BenOr: 112
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  ||||line 173, col 89 to line 173, col 95 of module BenOr: 112
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  ||line 173, col 103 to line 173, col 134 of module BenOr: 112
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  |||line 173, col 115 to line 173, col 133 of module BenOr: 112
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  ||||line 139, col 19 to line 139, col 63 of module BenOr: 112
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  |||||line 139, col 33 to line 139, col 62 of module BenOr: 448
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  |||||line 139, col 26 to line 139, col 30 of module BenOr: 112
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  ||||line 173, col 124 to line 173, col 130 of module BenOr: 112
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 174, col 25 to line 174, col 58 of module BenOr: 112
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 176, col 39 to line 176, col 69 of module BenOr: 0
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 177, col 39 to line 177, col 70 of module BenOr: 0
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 178, col 17 to line 178, col 49 of module BenOr: 112
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 179, col 17 to line 179, col 78 of module BenOr: 112
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2772:0 @!@!@
+<P2S line 181, col 1 to line 181, col 9 of module BenOr>: 40:112
+@!@!@ENDMSG 2772 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 181, col 17 to line 181, col 32 of module BenOr: 782
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  |line 181, col 17 to line 181, col 24 of module BenOr: 670
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 182, col 17 to line 182, col 99 of module BenOr: 112
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 183, col 17 to line 183, col 49 of module BenOr: 112
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 184, col 17 to line 184, col 76 of module BenOr: 112
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2772:0 @!@!@
+<P2R line 186, col 1 to line 186, col 9 of module BenOr>: 1:2
+@!@!@ENDMSG 2772 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 186, col 17 to line 186, col 32 of module BenOr: 668
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  |line 186, col 17 to line 186, col 24 of module BenOr: 666
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 187, col 18 to line 187, col 61 of module BenOr: 2
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  |line 187, col 18 to line 187, col 52 of module BenOr: 118
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  ||line 187, col 30 to line 187, col 51 of module BenOr: 118
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  |||line 137, col 21 to line 137, col 48 of module BenOr: 118
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  ||||line 137, col 36 to line 137, col 46 of module BenOr: 236
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  ||||line 137, col 28 to line 137, col 32 of module BenOr: 118
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  |||line 187, col 44 to line 187, col 50 of module BenOr: 118
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  |line 187, col 57 to line 187, col 61 of module BenOr: 118
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 188, col 20 to line 188, col 60 of module BenOr: 2
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  |line 188, col 20 to line 188, col 53 of module BenOr: 2
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  ||line 188, col 32 to line 188, col 52 of module BenOr: 2
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  |||line 140, col 21 to line 140, col 65 of module BenOr: 2
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  ||||line 140, col 35 to line 140, col 64 of module BenOr: 8
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  ||||line 140, col 28 to line 140, col 32 of module BenOr: 2
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  |||line 188, col 43 to line 188, col 49 of module BenOr: 2
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  |line 188, col 58 to line 188, col 60 of module BenOr: 2
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 189, col 25 to line 189, col 66 of module BenOr: 2
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 191, col 39 to line 191, col 77 of module BenOr: 0
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 193, col 39 to line 193, col 55 of module BenOr: 0
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 194, col 20 to line 194, col 103 of module BenOr: 2
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  |line 194, col 21 to line 194, col 59 of module BenOr: 2
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  ||line 194, col 21 to line 194, col 55 of module BenOr: 2
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  |||line 194, col 33 to line 194, col 54 of module BenOr: 2
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  ||||line 140, col 21 to line 140, col 65 of module BenOr: 2
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  |||||line 140, col 35 to line 140, col 64 of module BenOr: 8
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  |||||line 140, col 28 to line 140, col 32 of module BenOr: 2
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  ||||line 194, col 44 to line 194, col 50 of module BenOr: 2
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  ||||line 194, col 52 to line 194, col 53 of module BenOr: 2
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 195, col 28 to line 195, col 58 of module BenOr: 0
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 196, col 31 to line 196, col 114 of module BenOr: 2
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  |line 196, col 32 to line 196, col 70 of module BenOr: 2
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  ||line 196, col 32 to line 196, col 66 of module BenOr: 2
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  |||line 196, col 44 to line 196, col 65 of module BenOr: 2
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  ||||line 140, col 21 to line 140, col 65 of module BenOr: 2
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  |||||line 140, col 35 to line 140, col 64 of module BenOr: 8
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  |||||line 140, col 28 to line 140, col 32 of module BenOr: 2
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  ||||line 196, col 55 to line 196, col 61 of module BenOr: 2
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  ||||line 196, col 63 to line 196, col 64 of module BenOr: 2
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 197, col 39 to line 197, col 69 of module BenOr: 0
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 198, col 43 to line 198, col 81 of module BenOr: 2
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  |line 198, col 43 to line 198, col 77 of module BenOr: 2
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  ||line 198, col 55 to line 198, col 76 of module BenOr: 2
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  |||line 140, col 21 to line 140, col 65 of module BenOr: 2
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  ||||line 140, col 35 to line 140, col 64 of module BenOr: 8
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  ||||line 140, col 28 to line 140, col 32 of module BenOr: 2
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  |||line 198, col 66 to line 198, col 72 of module BenOr: 2
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  |||line 198, col 74 to line 198, col 75 of module BenOr: 2
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 200, col 52 to line 200, col 82 of module BenOr: 0
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 201, col 47 to line 202, col 59 of module BenOr: 2
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 203, col 17 to line 203, col 38 of module BenOr: 2
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 204, col 17 to line 204, col 53 of module BenOr: 2
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 205, col 17 to line 205, col 55 of module BenOr: 2
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 206, col 17 to line 206, col 66 of module BenOr: 2
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2772:0 @!@!@
+<Terminating line 212, col 1 to line 212, col 11 of module BenOr>: 0:0
+@!@!@ENDMSG 2772 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 212, col 19 to line 212, col 56 of module BenOr: 160
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 213, col 19 to line 213, col 32 of module BenOr: 0
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2774:0 @!@!@
+<inv_157514904037311000 line 25, col 1 to line 25, col 22 of module MC>
+@!@!@ENDMSG 2774 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  line 26, col 2 to line 26, col 42 of module MC: 162
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  |line 26, col 20 to line 26, col 42 of module MC: 2578
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2221:0 @!@!@
+  |line 26, col 13 to line 26, col 17 of module MC: 162
+@!@!@ENDMSG 2221 @!@!@
+@!@!@STARTMSG 2202:0 @!@!@
+End of statistics.
+@!@!@ENDMSG 2202 @!@!@
+@!@!@STARTMSG 2200:0 @!@!@
+Progress(18) at 2019-11-30 16:24:04: 434 states generated (10,581 s/min), 162 distinct states found (3,949 ds/min), 0 states left on queue.
+@!@!@ENDMSG 2200 @!@!@
+@!@!@STARTMSG 2199:0 @!@!@
+434 states generated, 162 distinct states found, 0 states left on queue.
+@!@!@ENDMSG 2199 @!@!@
+@!@!@STARTMSG 2194:0 @!@!@
+The depth of the complete state graph search is 18.
+@!@!@ENDMSG 2194 @!@!@
+@!@!@STARTMSG 2268:0 @!@!@
+The average outdegree of the complete state graph is 1 (minimum is 0, the maximum 4 and the 95th percentile is 3).
+@!@!@ENDMSG 2268 @!@!@
+@!@!@STARTMSG 2186:0 @!@!@
+Finished in 2466ms at (2019-11-30 16:24:04)
+@!@!@ENDMSG 2186 @!@!@

@@ -223,7 +223,5 @@ Termination == <>(\A self \in ProcSet: pc[self] = "Done")
 
 \* END TRANSLATION
 ---------------------------------------------------------------
-Agreement == (\A i,j \in Procs: decided[i] # -1 /\ decided[j] # -1 => decided[i] = decided[j])
-MinorityReport == (\A i,j \in Procs: decided[i] # -1 /\ decided[j] # -1 /\ decided[i] # 0 /\ decided[j] # 0 => ( decided[i] = decided[j]))
-Progress == (\A i,j \in Procs: \A q \in 1..MAXROUND: r[q] = MAXROUND /\ (decided[i] # -1) /\ (decided[j] # -1) => <> (decided[i] = decided[j] ))
+Agreement == (\A i,j \in Procs: r[i] = r[j] /\ decided[i] # -1 /\ decided[j] # -1=> decided[i] = decided[j])
 ================================================================

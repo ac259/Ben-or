@@ -94,6 +94,7 @@ Procs == 1..N
             with (v \in {0,1}){
                 p1v := v;
             };
+            print decided
             };
             (* This condition is not working correctly as if the messages
             that make it through are <<0,0,1,1>> assuming for simplicity no failures
@@ -200,6 +201,7 @@ P2R(self) == /\ pc[self] = "P2R"
                               ELSE /\ IF (Cardinality(ValueMsgP2(r[self],-1)) >=1)
                                          THEN /\ \E v \in {0,1}:
                                                    p1v' = [p1v EXCEPT ![self] = v]
+                                              /\ PrintT(decided'[self])
                                          ELSE /\ TRUE
                                               /\ p1v' = p1v
              /\ r' = [r EXCEPT ![self] = r[self] + 1]
