@@ -1,7 +1,3 @@
-(* 
-Pratik Kubal 50290804
-Anirudh CR 50290168
-*)
 ----------------------- MODULE BenOr----------------------------
 EXTENDS Integers, TLC, Sequences, FiniteSets
 CONSTANT N, F, MAXROUND, INPUT
@@ -199,6 +195,10 @@ MinorityReport == (\E j \in Procs: TRUE => (decided[j] = 1) \/ (decided[j] = -1)
 Progress == (\E j \in Procs: TRUE => <>(decided[j] # -1 ))
 BaitProgress == (\E j \in Procs: TRUE => (decided[j] = -1 ))
 ================================================================
+
+Pratik Kubal 50290804
+Anirudh CR 50290168
+
 ==========
 Agreement:
 ==========
