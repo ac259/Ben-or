@@ -15,7 +15,6 @@ Procs == 1..N
             ExtractValSet(S) == {m.value: m \in S}
             CollectP1Msgs(r) == {m \in p1Msg: (m.round = r)}
             CollectP2Msgs(r) == {m \in p2Msg: (m.round = r)}
-            \*\* A(t,r) == {CHOOSE x \in CollectP1Msgs(r): 1..(N-F)} 
             ValueMsg(r,v) ==  {m \in p1Msg: (m.round = r) /\ (m.value = v)}
             ValueMsgP2(r,v) ==  {m \in p2Msg: (m.round = r) /\ (m.value = v)}
             
@@ -31,13 +30,8 @@ Procs == 1..N
         
         macro RvcP1(r)
         {
-        (*\* This function deadlocks since I am using = to compare, ideally it should be >=
-        But the algorithm would need to find first n-f elements in the next line which I am not able to do
-        *)
+            \* \* The below statement gives A which is first N-F messages received
             await (Cardinality(CollectP1Msgs(r)) >= N - F);
-            \*\* DBCollectP1Msgs := DBCollectP1Msgs \union {[C |-> Cardinality(CollectP1Msgs(r)), M |-> CollectP1Msgs(r)]};
-            \* \* The above statement gives A which is first N-F messages received
-            \* \* Need to get the values from the messages out and determine if all are same
            
             \* print("inside recieve");
             if ((Cardinality(ValueMsg(r,1))*2 > N)){
@@ -52,13 +46,6 @@ Procs == 1..N
             \* print("-1");
             p2v := -1;
             }
-            (* This condition is not working correctly as if the messages
-            that make it through are <<0,0,1,1>> assuming for simplicity no failures
-            it should return -1 
-            else {
-            print("-1");
-            };
-            *)
         }
      
          macro SendP2(r,i)
@@ -69,14 +56,9 @@ Procs == 1..N
         
         macro RvcP2(r)
         {
-        (*\* This function deadlocks since I am using = to compare, ideally it should be >=
-        But the algorithm would need to find first n-f elements in the next line which I am not able to do
-        *)
+            \* \* The below statement gives A which is first N-F messages received
             await (Cardinality(CollectP2Msgs(r)) >= N - F);
-            \*\* DBCollectP1Msgs := DBCollectP1Msgs \union {[C |-> Cardinality(CollectP1Msgs(r)), M |-> CollectP1Msgs(r)]};
-            \* \* The above statement gives A which is first N-F messages received
-            \* \* Need to get the values from the messages out and determine if all are same
-           
+            
             \* print("inside recieve");
             if (Cardinality(ValueMsgP2(r,1)) >= F+1 ){
             decided := 1;
@@ -95,17 +77,9 @@ Procs == 1..N
                 p1v := v;
             };
             };
-            (* This condition is not working correctly as if the messages
-            that make it through are <<0,0,1,1>> assuming for simplicity no failures
-            it should return -1 
-            else {
-            print("-1");
-            };
-            *)
         }
         
         fair process (p \in Procs)
-        \* \* p2v is b and p1v is a http://www.nada.kth.se/kurser/kth/2D5340/wwwbook/node17.html 
         variable r = 1, p1v = INPUT[self], p2v = -1, decided =-1;
         {    
             entry: while(r <MAXROUND) 
@@ -114,7 +88,6 @@ Procs == 1..N
                 P1S: SendP1(r,p1v);
                 \* \* RvcP1 -> Get n-f values with p1v
                 P1R: RvcP1(r);
-                \* \*DONE in the above macro|Logic can be included here or in the above macro. Basically we need to finalize b[p] == v if there is a majority(n-f), else b[p] = -1
                 \* \* SendP2 -> Macro which sends the b value of the node to the message board as p2v
                 P2S: SendP2(r,p2v);
                 \* \* RvcP2 -> Get n-f values with p2v
@@ -123,9 +96,6 @@ Procs == 1..N
                 r := r + 1;
                 };
                 };
-                (* \* Logic can be included here or in the above macro. Basically need to finalize decided[p] = v if there is a majority v in (n-f),
-                else pick random b if some value is not -1
-                    else if all are undecided pick uniformly between (0,1) *)
             };
         } 
     }
@@ -137,7 +107,6 @@ VARIABLES p1Msg, p2Msg, pc
 ExtractValSet(S) == {m.value: m \in S}
 CollectP1Msgs(r) == {m \in p1Msg: (m.round = r)}
 CollectP2Msgs(r) == {m \in p2Msg: (m.round = r)}
-
 ValueMsg(r,v) ==  {m \in p1Msg: (m.round = r) /\ (m.value = v)}
 ValueMsgP2(r,v) ==  {m \in p2Msg: (m.round = r) /\ (m.value = v)}
 
@@ -220,9 +189,77 @@ Spec == /\ Init /\ [][Next]_vars
 Termination == <>(\A self \in ProcSet: pc[self] = "Done")
 
 \* END TRANSLATION
----------------------------------------------------------------
+----------------------------------------------------------------
 Agreement == (\A i,j \in Procs: decided[i] # -1 /\ decided[j] # -1 => decided[i] = decided[j])
 MinorityReport == (\E j \in Procs: TRUE => (decided[j] = 1) \/ (decided[j] = -1))
 Progress == (\E j \in Procs: TRUE => <>(decided[j] # -1 ))
 BaitProgress == (\E j \in Procs: TRUE => (decided[j] = -1 ))
 ================================================================
+==========
+Agreement:
+==========
+
+We see that agreement is always satisfied, even when N < 5, F < 5, and F > N/2. According to our
+invariant property, we don't compare the initial value(-1) as the process has not been decided. 
+
+=========
+Progress:
+=========
+
+We see that progress property is always satisfied and consensens is achieved.  If we give same 
+preference values and vary the number of failures to zero or one for four nodes, consensus is 
+achieved and the program terminates which means that every process have decided a value not equal to
+-1. This is in Sync with the theoritical assumptions of algorithm.
+When the case is INPUT = <<0,1,1,1>> and there are no failures we see that the program terminates
+(Because majority is present and processes k-lock-1, however, when we allow the number of failures 
+as 1, the program doesn't terminate because the majority is not established.
+
+
+===================
+Bait Progress:
+===================
+
+We have defined a Bait Progress property which baits the model checker to find one process which
+have decided value as -1.The model checker using this invariant, finds an execution where all the nodes 
+have a decided value \in {0,1}
+
+---------------------------------------------
+Progress Violates, Bait Progress finds a way.
+---------------------------------------------
+
+Consider example of Input(INPUT) as <<0,0,1,1>>, MaxRounds(r) as 3, Nodes(N) as 4, Failures(F) as 0. 
+We see that here clearly there is no majority, the model checker will show a run where progress is 
+not achieved and all the decided values are -1. By intuition, this is when the bit flips to the input
+itself, that is there are two zeros and two ones.
+
+On the other hand, while checking Bait Progress, We see that the invariant breaks, that is 
+Consensus is reached. The model checker presents a run where the bit flips in such a way that it gives
+a majority in the next round. Eventually, decided value is k-locked and consensus is reached.
+
+One particular Trace of consensus of zero is as follows(Key Stages are given below):
+
+After certain executions, at r = <<2,2,2,1>> the third process flips its value to zero. The fourth 
+process also flips the bit at r = <<2,2,2,2>>. Thereby creating a majority Process one k-locks zero 
+and moves to round 3, consequently when all the processes reach round 3, consensus is reached by
+decided = <<0,0,0,0>>
+
+===================
+MINORITY Report: 
+===================
+
+Minority report is bait progress with consensus zero for a particular test case.
+
+Minority report doesn't break when there are no failures(F=0) which is understandable as there is a
+majority. When F = 1 it is possible to get zero as consensus and the model
+
+----------------
+Minority Rounds.
+----------------
+
+When we have failures > 0, Interesting observation is that flipping of the bits takes atleast 3 rounds 
+to achieve zero as the consensus. For failure = 1, we observe this trace.
+
+Intially, Input(INPUT) as <<0,1,1,1>>, MaxRounds(r) as 3, Nodes(N) as 4, Failures(F) as 1.
+At r = <<3,2,2,1>> process 1 k-locks value as zero because of random bit flips to zero, which leads to 
+majority in the previous rounds. Therefore, all other processes after reaching round 3 have decided 
+value as k-0.

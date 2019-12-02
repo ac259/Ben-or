@@ -940,18 +940,7 @@
 \tlatex
 \setboolean{shading}{true}
 \@x{}\moduleLeftDash\@xx{ {\MODULE} BenOr}\moduleRightDash\@xx{}%
-\@x{}%
-\@y{%
- \ensuremath{\.{\,\backslash\,}\.{*} BenOr} algorithm
-}%
-\@xx{}%
-\@x{}%
-\@y{%
- \ensuremath{\.{\,\backslash\,}\.{*} Copr}. (c) Ani \& \ensuremath{Pratik},
- \ensuremath{Nov} 22, 2019
-}%
-\@xx{}%
-\@x{ {\EXTENDS} Integers ,\, TLC ,\, Sequences}%
+\@x{ {\EXTENDS} Integers ,\, TLC ,\, Sequences ,\, FiniteSets}%
 \@x{ {\CONSTANT} N ,\, F ,\, MAXROUND ,\, INPUT}%
 \@x{}%
 \@y{\@s{0}%
@@ -969,32 +958,145 @@
 \pcalsymbolstrue
 \pcalshadingtrue
 \csyntaxtrue
-\@x{\@s{16.4} {\p@mmalgorithm} BenOr}%
+\@x{\@s{16.4} {\p@mmfair} {\p@algorithm} BenOr}%
 \@x{\@s{16.4} {\p@lbrace}}%
-\@x{\@s{32.8} {\p@variable} msgBrd \.{=} \{ \} {\p@semicolon}}%
+ \@x{\@s{32.8} {\p@variable} p1Msg \.{=} \{ \} ,\, p2Msg \.{=} \{ \}
+ {\p@semicolon}}%
 \@pvspace{8.0pt}%
-\@x{\@s{32.8} {\p@macro} SendP1 {\p@lparen} i ,\, r {\p@rparen}}%
+\@x{\@s{32.8} {\p@define}}%
+\@x{\@s{32.8} {\p@lbrace}}%
+ \@x{\@s{49.19} ExtractValSet ( S )\@s{3.43} \.{\defeq} \{ m . value \.{:} m
+ \.{\in} S \}}%
+ \@x{\@s{49.19} CollectP1Msgs ( r ) \.{\defeq} \{ m \.{\in} p1Msg \.{:} ( m .
+ round \.{=} r ) \}}%
+ \@x{\@s{49.19} CollectP2Msgs ( r ) \.{\defeq} \{ m \.{\in} p2Msg \.{:} ( m .
+ round \.{=} r ) \}}%
+ \@x{\@s{49.19} ValueMsg ( r ,\, v ) \.{\defeq}\@s{4.1} \{ m \.{\in} p1Msg
+ \.{:} ( m . round \.{=} r ) \.{\land} ( m . value \.{=} v ) \}}%
+ \@x{\@s{49.19} ValueMsgP2 ( r ,\, v ) \.{\defeq}\@s{4.1} \{ m \.{\in} p2Msg
+ \.{:} ( m . round \.{=} r ) \.{\land} ( m . value \.{=} v ) \}}%
+\@pvspace{8.0pt}%
+\@x{\@s{32.8} {\p@rbrace}}%
+\@pvspace{8.0pt}%
+\@x{\@s{32.8} {\p@macro} SendP1 {\p@lparen} r ,\, i {\p@rparen}}%
 \@x{\@s{32.8} {\p@lbrace}}%
 \@x{\@s{49.19}}%
 \@y{\@s{0}%
  \ensuremath{\.{\,\backslash\,}\.{*}} Sends initial value \ensuremath{i
 }}%
 \@xx{}%
- \@x{\@s{49.19} msgBrd \.{:=} msgBrd \.{\cup} \{ [ type \.{\mapsto}\@w{p1v}
- ,\, value \.{\mapsto} i ,\, round \.{\mapsto} r ] \}}%
+\@x{\@s{49.19}}%
+\@y{%
+ \ensuremath{print(i)};
+}%
+\@xx{}%
+ \@x{\@s{49.19} p1Msg \.{:=} p1Msg \.{\cup} \{ [ nodeid \.{\mapsto} self ,\,
+ round \.{\mapsto} r ,\, value \.{\mapsto} i ] \} {\p@semicolon}}%
+\@pvspace{8.0pt}%
 \@x{\@s{32.8} {\p@rbrace}}%
 \@pvspace{8.0pt}%
-\@x{\@s{32.8} {\p@macro} RvcP1 {\p@lparen} {\p@rparen}}%
+\@x{\@s{32.8} {\p@macro} RvcP1 {\p@lparen} r {\p@rparen}}%
 \@x{\@s{32.8} {\p@lbrace}}%
-\@x{\@s{49.19} {\p@skip} {\p@semicolon}}%
+\@x{\@s{49.19}}%
+\@y{\@s{0}%
+ \ensuremath{\.{\,\backslash\,}\.{*}} The below statement gives A which is
+ first \ensuremath{N\.{-}F} messages received
+}%
+\@xx{}%
+ \@x{\@s{49.19} {\p@await} ( Cardinality ( CollectP1Msgs ( r ) ) \.{\geq} N
+ \.{-} F ) {\p@semicolon}}%
+\@pvspace{8.0pt}%
+\@x{\@s{49.19}}%
+\@y{\@s{0}%
+ \ensuremath{print(\mbox{``}inside} \ensuremath{recieve\mbox{''})};
+}%
+\@xx{}%
+ \@x{\@s{49.19} {\p@if} {\p@lparen} ( Cardinality ( ValueMsg ( r ,\, 1 ) )
+ \.{*} 2 \.{>} N ) {\p@rparen} {\p@lbrace}}%
+\@x{\@s{49.19} p2v \.{:=} 1 {\p@semicolon}}%
+\@x{\@s{49.19}}%
+\@y{\@s{0}%
+ \ensuremath{print(\mbox{``}1\mbox{''})};
+}%
+\@xx{}%
+\@x{\@s{49.19} {\p@rbrace}}%
+ \@x{\@s{49.19} {\p@else} {\p@if} {\p@lparen} ( Cardinality ( ValueMsg ( r ,\,
+ 0 ) ) \.{*} 2 \.{>} N ) {\p@rparen} {\p@lbrace}}%
+\@x{\@s{49.19}}%
+\@y{\@s{2.5}%
+ \ensuremath{print(\mbox{``}0\mbox{''})};
+}%
+\@xx{}%
+\@x{\@s{49.19} p2v \.{:=} 0 {\p@semicolon}}%
+\@x{\@s{49.19} {\p@rbrace}}%
+\@x{\@s{49.19} {\p@else} {\p@lbrace}}%
+\@x{\@s{49.19}}%
+\@y{\@s{0}%
+ \ensuremath{print(\mbox{``}\.{-}1\mbox{''})};
+}%
+\@xx{}%
+\@x{\@s{49.19} p2v \.{:=} \.{-} 1 {\p@semicolon}}%
+\@x{\@s{49.19} {\p@rbrace}}%
+\@x{\@s{32.8} {\p@rbrace}}%
+\@pvspace{8.0pt}%
+\@x{\@s{36.89} {\p@macro} SendP2 {\p@lparen} r ,\, i {\p@rparen}}%
+\@x{\@s{32.8} {\p@lbrace}}%
+\@x{\@s{49.19}}%
+\@y{\@s{0}%
+ \ensuremath{\.{\,\backslash\,}\.{*}} Sends initial value \ensuremath{i
+}}%
+\@xx{}%
+ \@x{\@s{49.19} p2Msg \.{:=} p2Msg \.{\cup} \{ [ nodeid \.{\mapsto} self ,\,
+ round \.{\mapsto} r ,\, value \.{\mapsto} i ] \}}%
+\@x{\@s{32.8} {\p@rbrace}}%
+\@pvspace{8.0pt}%
+\@x{\@s{32.8} {\p@macro} RvcP2 {\p@lparen} r {\p@rparen}}%
+\@x{\@s{32.8} {\p@lbrace}}%
+\@x{\@s{49.19}}%
+\@y{\@s{0}%
+ \ensuremath{\.{\,\backslash\,}\.{*}} The below statement gives A which is
+ first \ensuremath{N\.{-}F} messages received
+}%
+\@xx{}%
+ \@x{\@s{49.19} {\p@await} ( Cardinality ( CollectP2Msgs ( r ) ) \.{\geq} N
+ \.{-} F ) {\p@semicolon}}%
+\@pvspace{8.0pt}%
+\@x{\@s{49.19}}%
+\@y{\@s{0}%
+ \ensuremath{print(\mbox{``}inside} \ensuremath{recieve\mbox{''})};
+}%
+\@xx{}%
+ \@x{\@s{49.19} {\p@if} {\p@lparen} Cardinality ( ValueMsgP2 ( r ,\, 1 ) )
+ \.{\geq} F \.{+} 1 {\p@rparen} {\p@lbrace}}%
+\@x{\@s{49.19} decided \.{:=} 1 {\p@semicolon}}%
+\@x{\@s{49.19} {\p@rbrace}}%
+ \@x{\@s{49.19} {\p@else} {\p@if} {\p@lparen} Cardinality ( ValueMsgP2 ( r ,\,
+ 0 ) ) \.{\geq} F \.{+} 1 {\p@rparen} {\p@lbrace}}%
+\@x{\@s{49.19} decided \.{:=} 0 {\p@semicolon}}%
+\@x{\@s{49.19} {\p@rbrace} {\p@semicolon}}%
+ \@x{\@s{49.19} {\p@if} {\p@lparen} ( Cardinality ( ValueMsgP2 ( r ,\, 0 ) )
+ \.{>} 0 ) {\p@rparen} {\p@lbrace}}%
+\@x{\@s{49.19} p1v \.{:=} 0 {\p@semicolon}}%
+\@x{\@s{49.19} {\p@rbrace}}%
+ \@x{\@s{49.19} {\p@else} {\p@if} {\p@lparen} ( Cardinality ( ValueMsgP2 ( r
+ ,\, 1 ) ) \.{>} 0 ) {\p@rparen} {\p@lbrace}}%
+\@x{\@s{49.19} p1v \.{:=} 1 {\p@semicolon}}%
+\@x{\@s{49.19} {\p@rbrace}}%
+ \@x{\@s{49.19} {\p@else} {\p@if} {\p@lparen} ( Cardinality ( ValueMsgP2 ( r
+ ,\, \.{-} 1 ) ) \.{\geq} 1 ) {\p@rparen} {\p@lbrace}}%
+ \@x{\@s{49.19} {\p@with} {\p@lparen} v \.{\in} \{ 0 ,\, 1 \} {\p@rparen}
+ {\p@lbrace}}%
+\@x{\@s{65.6} p1v \.{:=} v {\p@semicolon}}%
+\@x{\@s{49.19} {\p@rbrace} {\p@semicolon}}%
+\@x{\@s{49.19} {\p@rbrace} {\p@semicolon}}%
 \@x{\@s{32.8} {\p@rbrace}}%
 \@pvspace{8.0pt}%
 \@x{\@s{32.8} {\p@fair} {\p@process} {\p@lparen} p \.{\in} Procs {\p@rparen}}%
  \@x{\@s{32.8} {\p@variable} r \.{=} 1 ,\, p1v \.{=} INPUT [ self ] ,\, p2v
  \.{=} \.{-} 1 ,\, decided \.{=} \.{-} 1 {\p@semicolon}}%
 \@x{\@s{32.8} {\p@lbrace}}%
- \@x{\@s{49.19} broadcast\@s{.5}\textrm{:}\@s{3} {\p@while} {\p@lparen}
- {\TRUE} {\p@rparen}}%
+ \@x{\@s{49.19} entry\@s{.5}\textrm{:}\@s{3} {\p@while} {\p@lparen} r \.{<}
+ MAXROUND {\p@rparen}}%
 \@x{\@s{49.19} {\p@lbrace}}%
 \@x{\@s{65.6}}%
 \@y{\@s{0}%
@@ -1002,8 +1104,7 @@
  post the value of that node to the message board as \ensuremath{p1v
 }}%
 \@xx{}%
-\@x{\@s{65.6} {\p@print} p1v {\p@semicolon}}%
-\@x{\@s{65.6} P1S\@s{.5}\textrm{:}\@s{3} SendP1 ( p1v ,\, r ) {\p@semicolon}}%
+\@x{\@s{65.6} P1S\@s{.5}\textrm{:}\@s{3} SendP1 ( r ,\, p1v ) {\p@semicolon}}%
 \@x{\@s{65.6}}%
 \@y{\@s{0}%
  \ensuremath{\.{\,\backslash\,}\.{*} RvcP1 \.{\rightarrow}} Get n-f values
@@ -1013,51 +1114,60 @@
 \@x{\@s{65.6} P1R\@s{.5}\textrm{:}\@s{3} RvcP1 ( r ) {\p@semicolon}}%
 \@x{\@s{65.6}}%
 \@y{\@s{0}%
- \ensuremath{\.{\,\backslash\,}\.{*}} Logic can be included here or in the
- above macro. Basically we need to finalize \ensuremath{b[p] \.{\defeq} v} if
- there is a \ensuremath{majority(n\.{-}f)}, else \ensuremath{b[p] \.{=} \.{-}1
-}}%
-\@xx{}%
-\@x{\@s{65.6}}%
-\@y{\@s{0}%
  \ensuremath{\.{\,\backslash\,}\.{*} SendP2 \.{\rightarrow}} Macro which
- sends the \ensuremath{b} value of the node to the message board as
- \ensuremath{p2v
+ sends the b value of the node to the message board as \ensuremath{p2v
 }}%
 \@xx{}%
+\@x{\@s{65.6} P2S\@s{.5}\textrm{:}\@s{3} SendP2 ( r ,\, p2v ) {\p@semicolon}}%
 \@x{\@s{65.6}}%
 \@y{\@s{0}%
  \ensuremath{\.{\,\backslash\,}\.{*} RvcP2 \.{\rightarrow}} Get n-f values
  with \ensuremath{p2v
 }}%
 \@xx{}%
-\begin{lcom}{40.0}%
-\begin{cpar}{0}{T}{F}{7.5}{0}{}%
- \ensuremath{\.{\,\backslash\,}\.{*}} Logic can be included here or in the
- above macro. Basically need to finalize \ensuremath{decided[p] \.{=} v} if
- there is a majority \ensuremath{v} in (n-f),
-\end{cpar}%
-\begin{cpar}{1}{T}{F}{0}{10.0}{}%
-else pick random \ensuremath{b} if some value is not \ensuremath{\.{-}1
-} else if all are undecided pick uniformly between (0,1)
-\end{cpar}%
-\end{lcom}%
+\@x{\@s{65.6} P2R\@s{.5}\textrm{:}\@s{3} {\p@lbrace}}%
+\@x{\@s{65.6} RvcP2 ( r ) {\p@semicolon}}%
 \@x{\@s{65.6} r \.{:=} r \.{+} 1 {\p@semicolon}}%
-\@x{\@s{49.19} {\p@rbrace}}%
+\@x{\@s{65.6} {\p@rbrace} {\p@semicolon}}%
+\@x{\@s{65.6} {\p@rbrace} {\p@semicolon}}%
+\@x{\@s{49.19} {\p@rbrace} {\p@semicolon}}%
 \@x{\@s{32.8} {\p@rbrace}}%
-\@x{\@s{16.4} {\p@rbrace}}%
 \@y{}%
 \@xx{}%
 \pcalshadingfalse \pcalsymbolsfalse
+\begin{lcom}{15.0}%
+\begin{cpar}{0}{F}{F}{0}{0}{}%
+\ensuremath{\}
+}%
+\end{cpar}%
+\end{lcom}%
 \@x{}%
 \@y{\@s{0}%
  BEGIN TRANSLATION
 }%
 \@xx{}%
-\@x{ {\VARIABLES} msgBrd ,\, pc ,\, r ,\, p1v ,\, p2v ,\, decided}%
+\@x{ {\VARIABLES} p1Msg ,\, p2Msg ,\, pc}%
 \@pvspace{8.0pt}%
- \@x{ vars \.{\defeq} {\langle} msgBrd ,\, pc ,\, r ,\, p1v ,\, p2v ,\,
- decided {\rangle}}%
+\@x{}%
+\@y{\@s{0}%
+ define statement
+}%
+\@xx{}%
+ \@x{ ExtractValSet ( S )\@s{3.43} \.{\defeq} \{ m . value \.{:} m \.{\in} S
+ \}}%
+ \@x{ CollectP1Msgs ( r ) \.{\defeq} \{ m \.{\in} p1Msg \.{:} ( m . round
+ \.{=} r ) \}}%
+ \@x{ CollectP2Msgs ( r ) \.{\defeq} \{ m \.{\in} p2Msg \.{:} ( m . round
+ \.{=} r ) \}}%
+ \@x{ ValueMsg ( r ,\, v ) \.{\defeq}\@s{4.1} \{ m \.{\in} p1Msg \.{:} ( m .
+ round \.{=} r ) \.{\land} ( m . value \.{=} v ) \}}%
+ \@x{ ValueMsgP2 ( r ,\, v ) \.{\defeq}\@s{4.1} \{ m \.{\in} p2Msg \.{:} ( m .
+ round \.{=} r ) \.{\land} ( m . value \.{=} v ) \}}%
+\@pvspace{8.0pt}%
+\@x{ {\VARIABLES} r ,\, p1v ,\, p2v ,\, decided}%
+\@pvspace{8.0pt}%
+ \@x{ vars \.{\defeq} {\langle} p1Msg ,\, p2Msg ,\, pc ,\, r ,\, p1v ,\, p2v
+ ,\, decided {\rangle}}%
 \@pvspace{8.0pt}%
 \@x{ ProcSet \.{\defeq} ( Procs )}%
 \@pvspace{8.0pt}%
@@ -1066,7 +1176,8 @@ else pick random \ensuremath{b} if some value is not \ensuremath{\.{-}1
  Global variables
 }%
 \@xx{}%
-\@x{\@s{35.70} \.{\land} msgBrd \.{=} \{ \}}%
+\@x{\@s{35.70} \.{\land} p1Msg \.{=} \{ \}}%
+\@x{\@s{35.70} \.{\land} p2Msg \.{=} \{ \}}%
 \@x{\@s{35.70}}%
 \@y{\@s{0}%
  Process \ensuremath{p
@@ -1080,47 +1191,291 @@ else pick random \ensuremath{b} if some value is not \ensuremath{\.{-}1
  \@x{\@s{35.70} \.{\land} decided \.{=} [ self \.{\in} Procs \.{\mapsto} \.{-}
  1 ]}%
  \@x{\@s{35.70} \.{\land} pc \.{=} [ self \.{\in} ProcSet
- \.{\mapsto}\@w{broadcast} ]}%
+ \.{\mapsto}\@w{entry} ]}%
 \@pvspace{8.0pt}%
-\@x{ broadcast ( self ) \.{\defeq} \.{\land} pc [ self ] \.{=}\@w{broadcast}}%
-\@x{\@s{83.78} \.{\land} PrintT ( p1v [ self ] )}%
- \@x{\@s{83.78} \.{\land} pc \.{'} \.{=} [ pc {\EXCEPT} {\bang} [ self ]
- \.{=}\@w{P1S} ]}%
- \@x{\@s{83.78} \.{\land} {\UNCHANGED} {\langle} msgBrd ,\, r ,\, p1v ,\, p2v
- ,\, decided {\rangle}}%
+\@x{ entry ( self ) \.{\defeq} \.{\land} pc [ self ] \.{=}\@w{entry}}%
+\@x{\@s{66.59} \.{\land} {\IF} r [ self ] \.{<} MAXROUND}%
+ \@x{\@s{89.86} \.{\THEN} \.{\land} pc \.{'} \.{=} [ pc {\EXCEPT} {\bang} [
+ self ] \.{=}\@w{P1S} ]}%
+ \@x{\@s{89.86} \.{\ELSE} \.{\land} pc \.{'} \.{=} [ pc {\EXCEPT} {\bang} [
+ self ] \.{=}\@w{Done} ]}%
+ \@x{\@s{66.59} \.{\land} {\UNCHANGED} {\langle} p1Msg ,\, p2Msg ,\, r ,\, p1v
+ ,\, p2v ,\, decided {\rangle}}%
 \@pvspace{8.0pt}%
 \@x{ P1S ( self )\@s{0.86} \.{\defeq} \.{\land} pc [ self ] \.{=}\@w{P1S}}%
- \@x{\@s{63.58} \.{\land} msgBrd \.{'} \.{=} ( msgBrd \.{\cup} \{ [ type
- \.{\mapsto}\@w{p1v} ,\, value \.{\mapsto} p1v [ self ] ,\, round \.{\mapsto}
- r [ self ] ] \} )}%
+ \@x{\@s{63.58} \.{\land} p1Msg \.{'} \.{=} ( p1Msg \.{\cup} \{ [ nodeid
+ \.{\mapsto} self ,\, round \.{\mapsto} r [ self ] ,\, value \.{\mapsto} p1v
+ [ self ] ] \} )}%
  \@x{\@s{63.58} \.{\land} pc \.{'} \.{=} [ pc {\EXCEPT} {\bang} [ self ]
  \.{=}\@w{P1R} ]}%
- \@x{\@s{63.58} \.{\land} {\UNCHANGED} {\langle} r ,\, p1v ,\, p2v ,\, decided
- {\rangle}}%
+ \@x{\@s{63.58} \.{\land} {\UNCHANGED} {\langle} p2Msg ,\, r ,\, p1v ,\, p2v
+ ,\, decided {\rangle}}%
 \@pvspace{8.0pt}%
 \@x{ P1R ( self ) \.{\defeq} \.{\land} pc [ self ] \.{=}\@w{P1R}}%
-\@x{\@s{63.58} \.{\land} {\TRUE}}%
+ \@x{\@s{63.58} \.{\land} ( Cardinality ( CollectP1Msgs ( r [ self ] ) )
+ \.{\geq} N \.{-} F )}%
+ \@x{\@s{63.58} \.{\land} {\IF} ( Cardinality ( ValueMsg ( r [ self ] ,\, 1 )
+ ) \.{*} 2 \.{>} N )}%
+ \@x{\@s{86.85} \.{\THEN} \.{\land} p2v \.{'} \.{=} [ p2v {\EXCEPT} {\bang} [
+ self ] \.{=} 1 ]}%
+ \@x{\@s{86.85} \.{\ELSE} \.{\land} {\IF} ( Cardinality ( ValueMsg ( r [ self
+ ] ,\, 0 ) ) \.{*} 2 \.{>} N )}%
+ \@x{\@s{141.43} \.{\THEN} \.{\land} p2v \.{'} \.{=} [ p2v {\EXCEPT} {\bang} [
+ self ] \.{=} 0 ]}%
+ \@x{\@s{141.43} \.{\ELSE} \.{\land} p2v \.{'} \.{=} [ p2v {\EXCEPT} {\bang} [
+ self ] \.{=} \.{-} 1 ]}%
+ \@x{\@s{63.58} \.{\land} pc \.{'} \.{=} [ pc {\EXCEPT} {\bang} [ self ]
+ \.{=}\@w{P2S} ]}%
+ \@x{\@s{63.58} \.{\land} {\UNCHANGED} {\langle} p1Msg ,\, p2Msg ,\, r ,\, p1v
+ ,\, decided {\rangle}}%
+\@pvspace{8.0pt}%
+\@x{ P2S ( self )\@s{0.86} \.{\defeq} \.{\land} pc [ self ] \.{=}\@w{P2S}}%
+ \@x{\@s{63.58} \.{\land} p2Msg \.{'} \.{=} ( p2Msg \.{\cup} \{ [ nodeid
+ \.{\mapsto} self ,\, round \.{\mapsto} r [ self ] ,\, value \.{\mapsto} p2v
+ [ self ] ] \} )}%
+ \@x{\@s{63.58} \.{\land} pc \.{'} \.{=} [ pc {\EXCEPT} {\bang} [ self ]
+ \.{=}\@w{P2R} ]}%
+ \@x{\@s{63.58} \.{\land} {\UNCHANGED} {\langle} p1Msg ,\, r ,\, p1v ,\, p2v
+ ,\, decided {\rangle}}%
+\@pvspace{8.0pt}%
+\@x{ P2R ( self ) \.{\defeq} \.{\land} pc [ self ] \.{=}\@w{P2R}}%
+ \@x{\@s{63.58} \.{\land} ( Cardinality ( CollectP2Msgs ( r [ self ] ) )
+ \.{\geq} N\@s{7.65} \.{-} F )}%
+ \@x{\@s{63.58} \.{\land} {\IF} Cardinality ( ValueMsgP2 ( r [ self ] ,\, 1 )
+ ) \.{\geq} F \.{+} 1}%
+ \@x{\@s{86.85} \.{\THEN} \.{\land} decided \.{'} \.{=} [ decided {\EXCEPT}
+ {\bang} [ self ] \.{=} 1 ]}%
+ \@x{\@s{86.85} \.{\ELSE} \.{\land} {\IF} Cardinality ( ValueMsgP2 ( r [ self
+ ] ,\, 0 ) ) \.{\geq} F \.{+} 1}%
+ \@x{\@s{141.43} \.{\THEN} \.{\land} decided \.{'} \.{=} [ decided {\EXCEPT}
+ {\bang} [ self ] \.{=} 0 ]}%
+\@x{\@s{141.43} \.{\ELSE} \.{\land} {\TRUE}}%
+\@x{\@s{172.74} \.{\land} {\UNCHANGED} decided}%
+ \@x{\@s{63.58} \.{\land} {\IF} ( Cardinality ( ValueMsgP2 ( r [ self ] ,\, 0
+ ) ) \.{>} 0 )}%
+ \@x{\@s{86.85} \.{\THEN} \.{\land} p1v \.{'} \.{=} [ p1v {\EXCEPT} {\bang} [
+ self ] \.{=} 0 ]}%
+ \@x{\@s{86.85} \.{\ELSE} \.{\land} {\IF} ( Cardinality ( ValueMsgP2 ( r [
+ self ] ,\, 1 ) ) \.{>} 0 )}%
+ \@x{\@s{141.43} \.{\THEN} \.{\land} p1v \.{'} \.{=} [ p1v {\EXCEPT} {\bang} [
+ self ] \.{=} 1 ]}%
+ \@x{\@s{141.43} \.{\ELSE} \.{\land} {\IF} ( Cardinality ( ValueMsgP2 ( r [
+ self ] ,\, \.{-} 1 ) ) \.{\geq} 1 )}%
+\@x{\@s{196.00} \.{\THEN} \.{\land} \E\, v \.{\in} \{ 0 ,\, 1 \} \.{:}}%
+\@x{\@s{246.63} p1v \.{'} \.{=} [ p1v {\EXCEPT} {\bang} [ self ] \.{=} v ]}%
+\@x{\@s{196.00} \.{\ELSE} \.{\land} {\TRUE}}%
+\@x{\@s{227.31} \.{\land} p1v \.{'} \.{=} p1v}%
  \@x{\@s{63.58} \.{\land} r \.{'} \.{=} [ r {\EXCEPT} {\bang} [ self ] \.{=} r
  [ self ] \.{+} 1 ]}%
  \@x{\@s{63.58} \.{\land} pc \.{'} \.{=} [ pc {\EXCEPT} {\bang} [ self ]
- \.{=}\@w{broadcast} ]}%
- \@x{\@s{63.58} \.{\land} {\UNCHANGED} {\langle} msgBrd ,\, p1v ,\, p2v ,\,
- decided {\rangle}}%
+ \.{=}\@w{entry} ]}%
+ \@x{\@s{63.58} \.{\land} {\UNCHANGED} {\langle} p1Msg ,\, p2Msg ,\, p2v
+ {\rangle}}%
 \@pvspace{8.0pt}%
- \@x{ p ( self ) \.{\defeq} broadcast ( self ) \.{\lor} P1S ( self ) \.{\lor}
- P1R ( self )}%
+ \@x{ p ( self ) \.{\defeq} entry ( self ) \.{\lor} P1S ( self ) \.{\lor} P1R
+ ( self ) \.{\lor} P2S ( self ) \.{\lor} P2R ( self )}%
+\@pvspace{8.0pt}%
+\@x{}%
+\@y{\@s{0}%
+ Allow infinite stuttering to prevent deadlock on termination.
+}%
+\@xx{}%
+ \@x{ Terminating \.{\defeq} \.{\land} \A\, self \.{\in} ProcSet \.{:} pc [
+ self ] \.{=}\@w{Done}}%
+\@x{\@s{73.56} \.{\land} {\UNCHANGED} vars}%
 \@pvspace{8.0pt}%
 \@x{ Next \.{\defeq} ( \E\, self \.{\in} Procs \.{:} p ( self ) )}%
+\@x{\@s{47.82} \.{\lor} Terminating}%
 \@pvspace{8.0pt}%
  \@x{ Spec\@s{1.46} \.{\defeq} \.{\land} Init \.{\land} {\Box} [ Next ]_{
  vars}}%
+\@x{\@s{39.83} \.{\land} {\WF}_{ vars} ( Next )}%
  \@x{\@s{39.83} \.{\land} \A\, self \.{\in} Procs \.{:} {\WF}_{ vars} ( p (
  self ) )}%
+\@pvspace{8.0pt}%
+ \@x{ Termination \.{\defeq} {\Diamond} ( \A\, self \.{\in} ProcSet \.{:} pc [
+ self ] \.{=}\@w{Done} )}%
 \@pvspace{8.0pt}%
 \@x{}%
 \@y{\@s{0}%
  END TRANSLATION
 }%
 \@xx{}%
+\@x{}\midbar\@xx{}%
+ \@x{ Agreement \.{\defeq} ( \A\, i ,\, j \.{\in} Procs \.{:} decided [ i ]
+ \.{\neq} \.{-} 1 \.{\land} decided [ j ] \.{\neq} \.{-} 1 \.{\implies}
+ decided [ i ] \.{=} decided [ j ] )}%
+ \@x{ MinorityReport \.{\defeq} ( \E\, j \.{\in} Procs \.{:} {\TRUE}
+ \.{\implies} ( decided [ j ] \.{=} 1 ) \.{\lor} ( decided [ j ] \.{=} \.{-}
+ 1 ) )}%
+ \@x{ Progress \.{\defeq} ( \E\, j \.{\in} Procs \.{:} {\TRUE} \.{\implies}
+ {\Diamond} ( decided [ j ] \.{\neq} \.{-} 1 ) )}%
+ \@x{ BaitProgress \.{\defeq} ( \E\, j \.{\in} Procs \.{:} {\TRUE}
+ \.{\implies} ( decided [ j ] \.{=} \.{-} 1 ) )}%
 \@x{}\bottombar\@xx{}%
+\setboolean{shading}{false}
+\begin{lcom}{0}%
+\begin{cpar}{0}{F}{F}{0}{0}{}%
+\ceqdash{10}
+\end{cpar}%
+\begin{cpar}{0}{F}{F}{0}{0}{}%
+Agreement:
+\end{cpar}%
+\begin{cpar}{0}{F}{F}{0}{0}{}%
+\ceqdash{10}
+\end{cpar}%
+\vshade{5.0}%
+\begin{cpar}{0}{F}{F}{0}{0}{}%
+ We see that agreement is always satisfied, even when \ensuremath{N \.{<} 5},
+ \ensuremath{F \.{<} 5}, and \ensuremath{F \.{>} N}/2. According to our
+ invariant property, we don\mbox{'}t compare the initial
+ \ensuremath{value(\.{-}1)} as the process has not been decided.
+\end{cpar}%
+\vshade{5.0}%
+\begin{cpar}{0}{F}{F}{0}{0}{}%
+\ceqdash{9}
+\end{cpar}%
+\begin{cpar}{0}{F}{F}{0}{0}{}%
+Progress:
+\end{cpar}%
+\begin{cpar}{0}{F}{F}{0}{0}{}%
+\ceqdash{9}
+\end{cpar}%
+\vshade{5.0}%
+\begin{cpar}{0}{F}{F}{0}{0}{}%
+ We see that progress property is always satisfied and consensens is achieved.
+ If we give same
+ preference values and vary the number of failures to zero or one for four
+ nodes, consensus is
+ achieved and the program terminates which means that every process have
+ decided a value not equal to
+ \ensuremath{\.{-}1}. This is in \ensuremath{Sync} with the theoritical
+ assumptions of algorithm.
+ When the case is \ensuremath{INPUT \.{=} {\langle}0,\,1,\,1,\,1{\rangle}}
+ and there are no failures we see that the program terminates
+ (Because majority is present and processes k-lock\ensuremath{\.{-}1},
+ however, when we allow the number of failures
+ as 1, the program doesn\mbox{'}t terminate because the majority is not
+ established.
+\end{cpar}%
+\vshade{10.0}%
+\begin{cpar}{0}{F}{F}{0}{0}{}%
+\ceqdash{19}
+\end{cpar}%
+\begin{cpar}{0}{F}{F}{0}{0}{}%
+Bait \ensuremath{Progress}:
+\end{cpar}%
+\begin{cpar}{0}{F}{F}{0}{0}{}%
+\ceqdash{19}
+\end{cpar}%
+\vshade{5.0}%
+\begin{cpar}{0}{F}{F}{0}{0}{}%
+ We have defined a Bait \ensuremath{Progress} property which baits the model
+ checker to find one process which
+ have decided value as \ensuremath{\.{-}1.The} model checker using this
+ invariant, finds an execution where all the nodes
+ have a decided \ensuremath{value \.{\in} \{0,\,1\}
+}%
+\end{cpar}%
+\vshade{5.0}%
+\begin{cpar}{0}{F}{F}{0}{0}{}%
+\cdash{45}
+\end{cpar}%
+\begin{cpar}{0}{F}{F}{0}{0}{}%
+Progress Violates, Bait \ensuremath{Progress} finds a way.
+\end{cpar}%
+\begin{cpar}{0}{F}{F}{0}{0}{}%
+\cdash{45}
+\end{cpar}%
+\vshade{5.0}%
+\begin{cpar}{0}{F}{F}{0}{0}{}%
+ Consider example of \ensuremath{Input(INPUT)} as
+ \ensuremath{{\langle}0,\,0,\,1,\,1{\rangle}}, \ensuremath{MaxRounds(r)} as
+ 3, \ensuremath{Nodes(N)} as 4, \ensuremath{Failures(F)} as 0.
+ We see that here clearly there is no majority, the model checker will show a
+ run where progress is
+ not achieved and all the decided values are \ensuremath{\.{-}1}. By
+ intuition, this is when the bit flips to the input
+ itself, that is there are two zeros and two ones.
+\end{cpar}%
+\vshade{5.0}%
+\begin{cpar}{0}{F}{F}{0}{0}{}%
+ On the other hand, while checking Bait \ensuremath{Progress}, We see that the
+ invariant breaks, that is
+ Consensus is reached. The model checker presents a run where the bit flips
+ in such a way that it gives
+ a majority in the next round. Eventually, decided value is k-locked and
+ consensus is reached.
+\end{cpar}%
+\vshade{5.0}%
+\begin{cpar}{0}{F}{F}{0}{0}{}%
+ One particular Trace of consensus of zero is as \ensuremath{follows(Key}
+ \ensuremath{Stages} \ensuremath{are} \ensuremath{given} \ensuremath{below)}:
+\end{cpar}%
+\vshade{5.0}%
+\begin{cpar}{0}{F}{F}{0}{0}{}%
+ After certain executions, at \ensuremath{r \.{=}
+ {\langle}2,\,2,\,2,\,1{\rangle}} the third process flips its value to zero.
+ The fourth
+ process also flips the bit at \ensuremath{r \.{=}
+ {\langle}2,\,2,\,2,\,2{\rangle}}. Thereby creating a majority Process one
+ k-locks zero
+ and moves to round 3, consequently when all the processes reach round 3,
+ consensus is reached by
+\end{cpar}%
+\begin{cpar}{0}{F}{F}{0}{0}{}%
+\ensuremath{decided \.{=} {\langle}0,\,0,\,0,\,0{\rangle}
+}%
+\end{cpar}%
+\vshade{5.0}%
+\begin{cpar}{0}{F}{F}{0}{0}{}%
+\ceqdash{19}
+\end{cpar}%
+\begin{cpar}{0}{F}{F}{0}{0}{}%
+MINORITY Report:
+\end{cpar}%
+\begin{cpar}{0}{F}{F}{0}{0}{}%
+\ceqdash{19}
+\end{cpar}%
+\vshade{5.0}%
+\begin{cpar}{0}{F}{F}{0}{0}{}%
+ Minority report is bait progress with consensus zero for a particular test
+ case.
+\end{cpar}%
+\vshade{5.0}%
+\begin{cpar}{0}{F}{F}{0}{0}{}%
+ Minority report doesn\mbox{'}t break when there are no
+ \ensuremath{failures(F\.{=}0)} which is understandable as there is a
+ majority. When \ensuremath{F \.{=} 1} it is possible to get zero as
+ consensus and the model
+\end{cpar}%
+\vshade{5.0}%
+\begin{cpar}{0}{F}{F}{0}{0}{}%
+\cdash{16}
+\end{cpar}%
+\begin{cpar}{0}{F}{F}{0}{0}{}%
+Minority Rounds.
+\end{cpar}%
+\begin{cpar}{0}{F}{F}{0}{0}{}%
+\cdash{16}
+\end{cpar}%
+\vshade{5.0}%
+\begin{cpar}{0}{F}{F}{0}{0}{}%
+ When we have failures \ensuremath{\.{>} 0}, Interesting observation is that
+ flipping of the bits takes atleast 3 rounds
+ to achieve zero as the consensus. For failure \ensuremath{\.{=} 1}, we
+ observe this trace.
+\end{cpar}%
+\vshade{5.0}%
+\begin{cpar}{0}{F}{F}{0}{0}{}%
+ Intially, \ensuremath{Input(INPUT)} as
+ \ensuremath{{\langle}0,\,1,\,1,\,1{\rangle}}, \ensuremath{MaxRounds(r)} as
+ 3, \ensuremath{Nodes(N)} as 4, \ensuremath{Failures(F)} as 1.
+ At \ensuremath{r \.{=} {\langle}3,\,2,\,2,\,1{\rangle}} process 1 k-locks
+ value as zero because of random bit flips to zero, which leads to
+ majority in the previous rounds. Therefore, all other processes after
+ reaching round 3 have decided
+ value as \ensuremath{k\.{-}0}.
+\end{cpar}%
+\end{lcom}%
 \end{document}
