@@ -1,1 +1,1 @@
-#Ben-Or’s Randomized Consensus Algorithm \
+# Ben-Or’s Randomized Consensus Algorithm 
